@@ -2,6 +2,8 @@ import React from 'react'
 import { Avatar } from '@mui/material'
 import { getAvatarColor } from '../../utils/avatarUtils'
 
+type Theme = 'light' | 'dark' | 'neo-brutalism'
+
 interface ConversationListItemProps {
   conversation: {
     id: string
@@ -15,7 +17,7 @@ interface ConversationListItemProps {
     type: string
   }
   isSelected: boolean
-  theme: 'light' | 'dark'
+  theme: Theme
   onClick: () => void
   t: (key: string) => string
 }
@@ -32,9 +34,9 @@ export const ConversationListItem: React.FC<ConversationListItemProps> = ({
       onClick={onClick}
       className={`p-4 border-b cursor-pointer transition-colors ${
         isSelected
-          ? theme === 'dark' ? 'bg-gray-700' : 'bg-blue-50'
-          : theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-50'
-      } ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}
+          ? (theme === 'dark' || theme === 'neo-brutalism') ? 'bg-gray-700' : 'bg-blue-50'
+          : (theme === 'dark' || theme === 'neo-brutalism') ? 'hover:bg-gray-700' : 'hover:bg-gray-50'
+      } ${(theme === 'dark' || theme === 'neo-brutalism') ? 'border-gray-700' : 'border-gray-200'}`}
     >
       <div className="flex items-center space-x-3">
         <div className="relative">
@@ -56,16 +58,16 @@ export const ConversationListItem: React.FC<ConversationListItemProps> = ({
         
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between">
-            <h3 className={`font-medium truncate ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+            <h3 className={`font-medium truncate ${(theme === 'dark' || theme === 'neo-brutalism') ? 'text-white' : 'text-gray-900'}`}>
               {conversation.name}
             </h3>
-            <span className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
+            <span className={`text-xs ${(theme === 'dark' || theme === 'neo-brutalism') ? 'text-gray-400' : 'text-gray-500'}`}>
               {conversation.time}
             </span>
           </div>
           
           <div className="flex items-center justify-between mt-1">
-            <p className={`text-sm truncate ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+            <p className={`text-sm truncate ${(theme === 'dark' || theme === 'neo-brutalism') ? 'text-gray-300' : 'text-gray-600'}`}>
               {conversation.lastMessage}
             </p>
             {conversation.unread > 0 && (
@@ -83,7 +85,7 @@ export const ConversationListItem: React.FC<ConversationListItemProps> = ({
             }`}>
               {conversation.type === 'tutor' ? t('messages.tutor') : t('messages.student')}
             </span>
-            <span className={`text-xs ml-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
+            <span className={`text-xs ml-2 ${(theme === 'dark' || theme === 'neo-brutalism') ? 'text-gray-400' : 'text-gray-500'}`}>
               {conversation.subject}
             </span>
           </div>

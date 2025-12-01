@@ -2,6 +2,8 @@ import React from 'react'
 import { Avatar } from '@mui/material'
 import { getInitials, getAvatarColor } from '../../utils/avatarUtils'
 
+type Theme = 'light' | 'dark' | 'neo-brutalism'
+
 interface User {
   id: string
   name?: string
@@ -12,7 +14,7 @@ interface User {
 interface ActiveUsersSectionProps {
   activeUsers: User[]
   loading: boolean
-  theme: 'light' | 'dark'
+  theme: Theme
   onUserClick: (userId: string) => void
   t: (key: string) => string
 }
@@ -24,9 +26,11 @@ export const ActiveUsersSection: React.FC<ActiveUsersSectionProps> = ({
   onUserClick,
   t
 }) => {
+  const isDark = theme === 'dark' || theme === 'neo-brutalism'
+  
   if (loading) {
     return (
-      <div className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'} py-4`}>
+      <div className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'} py-4`}>
         {t('messages.loading')}
       </div>
     )
@@ -34,7 +38,7 @@ export const ActiveUsersSection: React.FC<ActiveUsersSectionProps> = ({
 
   if (activeUsers.length === 0) {
     return (
-      <div className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'} py-4`}>
+      <div className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'} py-4`}>
         {t('messages.noOnlineUsers')}
       </div>
     )
@@ -48,7 +52,7 @@ export const ActiveUsersSection: React.FC<ActiveUsersSectionProps> = ({
         overflowX: 'auto',
         overflowY: 'hidden',
         scrollbarWidth: 'thin',
-        scrollbarColor: theme === 'dark' ? '#4b5563 #1f2937' : '#9ca3af #e5e7eb',
+        scrollbarColor: isDark ? '#4b5563 #1f2937' : '#9ca3af #e5e7eb',
         WebkitOverflowScrolling: 'touch',
         scrollSnapType: 'x proximity',
         msOverflowStyle: '-ms-autohiding-scrollbar',
@@ -81,7 +85,7 @@ export const ActiveUsersSection: React.FC<ActiveUsersSectionProps> = ({
               <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white"></div>
             )}
           </div>
-          <span className={`text-xs text-center mt-1 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+          <span className={`text-xs text-center mt-1 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
             {(user.name || user.email || '').split(' ')[0]}
           </span>
         </div>

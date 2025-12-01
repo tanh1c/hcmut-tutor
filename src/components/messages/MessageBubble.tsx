@@ -2,6 +2,8 @@ import React from 'react'
 import { formatDistanceToNow } from 'date-fns'
 import { AttachFile as AttachFileIcon } from '@mui/icons-material'
 
+type Theme = 'light' | 'dark' | 'neo-brutalism'
+
 interface Message {
   id: string
   content: string
@@ -14,7 +16,7 @@ interface Message {
 interface MessageBubbleProps {
   message: Message
   isOwnMessage: boolean
-  theme: 'light' | 'dark'
+  theme: Theme
 }
 
 export const MessageBubble: React.FC<MessageBubbleProps> = ({
@@ -28,9 +30,9 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({
     >
       <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
         isOwnMessage
-          ? theme === 'dark' ? 'bg-blue-600' : 'bg-blue-500'
-          : theme === 'dark' ? 'bg-gray-700' : 'bg-gray-200'
-      } ${isOwnMessage ? 'text-white' : theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+          ? (theme === 'dark' || theme === 'neo-brutalism') ? 'bg-blue-600' : 'bg-blue-500'
+          : (theme === 'dark' || theme === 'neo-brutalism') ? 'bg-gray-700' : 'bg-gray-200'
+      } ${isOwnMessage ? 'text-white' : (theme === 'dark' || theme === 'neo-brutalism') ? 'text-white' : 'text-gray-900'}`}>
         {/* File Message */}
         {message.type === 'file' && message.fileUrl && (
           <div className="mb-2">
@@ -70,8 +72,8 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({
         )}
         <span className={`text-xs block mt-1 ${
           isOwnMessage
-            ? theme === 'dark' ? 'text-blue-200' : 'text-blue-100'
-            : theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+            ? (theme === 'dark' || theme === 'neo-brutalism') ? 'text-blue-200' : 'text-blue-100'
+            : (theme === 'dark' || theme === 'neo-brutalism') ? 'text-gray-400' : 'text-gray-500'
         }`}>
           {formatDistanceToNow(new Date(message.createdAt), { addSuffix: true })}
         </span>
