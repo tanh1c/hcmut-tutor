@@ -163,5 +163,22 @@
       "punctuality": 4
     },
     "createdAt": "2025-11-11T14:12:04.362Z"
+  },
+  {
+    "id": "eval_rxWx25ympAz9",
+    "sessionId": "ses_XvUTW8woSBqZ",
+    "studentId": "stu_3xXLt1IWBsCS",
+    "tutorId": "tut_DtMRGUwYKFgQ",
+    "rating": 2,
+    "comment": "ok",
+    "aspects": {
+      "knowledge": 3,
+      "helpfulness": 3,
+      "communication": 3,
+      "punctuality": 5
+    },
+    "improvements": [],
+    "recommend": false,
+    "createdAt": "2025-11-30T15:07:59.924Z"
   }
 ]

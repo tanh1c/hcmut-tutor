@@ -9,6 +9,10 @@ import { useOnlineStatus } from '../../hooks/useOnlineStatus'
 import { conversationsAPI, usersAPI, authAPI, tutorsAPI, uploadAPI } from '../../lib/api'
 import { formatDistanceToNow } from 'date-fns'
 import { EmojiPickerComponent } from '../../components/EmojiPicker.tsx'
+import { getInitials, getAvatarColor } from '../../utils/avatarUtils'
+import { ConversationListItem } from '../../components/messages/ConversationListItem'
+import { MessageBubble } from '../../components/messages/MessageBubble'
+import { ActiveUsersSection } from '../../components/messages/ActiveUsersSection'
 import {
   Dashboard as DashboardIcon,
   Search as SearchIcon,
@@ -695,37 +699,6 @@ const Messages: React.FC = () => {
     }
   }, [showEmojiPicker])
 
-  // Helper function to get initials from name
-  const getInitials = (name: string | undefined | null) => {
-    if (!name || typeof name !== 'string' || name.trim().length === 0) {
-      return '?'
-    }
-    const words = name.trim().split(' ').filter(w => w.length > 0)
-    if (words.length === 0) {
-      return '?'
-    }
-    return words
-      .map(word => word.charAt(0))
-      .join('')
-      .toUpperCase()
-      .slice(0, 2)
-  }
-
-  // Helper function to generate avatar color based on name
-  const getAvatarColor = (name: string | undefined | null) => {
-    // Default to 'Unknown' if name is invalid
-    if (!name || typeof name !== 'string' || name.trim().length === 0) {
-      name = 'Unknown'
-    }
-    const colors = [
-      '#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5',
-      '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4caf50',
-      '#8bc34a', '#cddc39', '#ffeb3b', '#ffc107', '#ff9800',
-      '#ff5722', '#795548', '#607d8b'
-    ]
-    const index = name.charCodeAt(0) % colors.length
-    return colors[index]
-  }
 
   const menuItems = [
     { id: 'dashboard', label: t('dashboard.menu.dashboard'), icon: <DashboardIcon />, path: '/student' },
@@ -1285,76 +1258,22 @@ const Messages: React.FC = () => {
               <h3 className={`text-lg font-semibold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                 {t('messages.activeNow')}
               </h3>
-              {loadingActiveUsers ? (
-                <div className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'} py-4`}>
-                  {t('messages.loading')}
-                      </div>
-              ) : activeUsers.length > 0 ? (
-                <div 
-                  className="flex space-x-4 overflow-x-auto pb-2"
-                  style={{
-                    width: '100%',
-                    overflowX: 'auto',
-                    overflowY: 'hidden',
-                    scrollbarWidth: 'thin',
-                    scrollbarColor: theme === 'dark' ? '#4b5563 #1f2937' : '#9ca3af #e5e7eb',
-                    WebkitOverflowScrolling: 'touch',
-                    scrollSnapType: 'x proximity',
-                    msOverflowStyle: '-ms-autohiding-scrollbar',
-                    display: 'flex',
-                    flexWrap: 'nowrap',
-                    whiteSpace: 'nowrap'
-                  }}
-                >
-                {/* Active Users */}
-                  {activeUsers.map((user) => {
-                    // Find conversation with this user
-                    const userConversation = conversations.find((conv: any) => 
-                      conv.participants && conv.participants.includes(user.id)
-                    )
-                    
-                    return (
-                      <div 
-                        key={user.id} 
-                        className="flex flex-col items-center min-w-[80px] flex-shrink-0 cursor-pointer"
-                        style={{ scrollSnapAlign: 'start' }}
-                        onClick={() => {
-                          if (userConversation) {
-                            setSelectedConversationId(userConversation.id)
-                          } else {
-                            handleCreateConversation(user.id)
-                          }
-                        }}
-                      >
-                    <div className="relative">
-                      <Avatar
-                        sx={{
-                          width: 64,
-                          height: 64,
-                              bgcolor: getAvatarColor(user.name || user.email),
-                          fontSize: '1.5rem',
-                          fontWeight: 'bold',
-                              border: user.isActive ? '3px solid #10b981' : '3px solid transparent'
-                        }}
-                      >
-                            {getInitials(user.name || user.email)}
-                      </Avatar>
-                          {user.isActive && (
-                      <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white"></div>
-                          )}
-                    </div>
-                    <span className={`text-xs text-center mt-1 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
-                          {(user.name || user.email).split(' ')[0]}
-                    </span>
-                  </div>
-                    )
-                  })}
-              </div>
-              ) : (
-                <div className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'} py-4`}>
-                  {t('messages.noOnlineUsers')}
-                </div>
-              )}
+              <ActiveUsersSection
+                activeUsers={activeUsers}
+                loading={loadingActiveUsers}
+                theme={theme}
+                onUserClick={(userId) => {
+                  const userConversation = conversations.find((conv: any) => 
+                    conv.participants && conv.participants.includes(userId)
+                  )
+                  if (userConversation) {
+                    setSelectedConversationId(userConversation.id)
+                  } else {
+                    handleCreateConversation(userId)
+                  }
+                }}
+                t={t}
+              />
             </div>
           </div>
 
@@ -1401,69 +1320,14 @@ const Messages: React.FC = () => {
                   </div>
                 ) : (
                   filteredConversations.map((conversation) => (
-                    <div
+                    <ConversationListItem
                       key={conversation.id}
+                      conversation={conversation}
+                      isSelected={selectedConversationId === conversation.id}
+                      theme={theme}
                       onClick={() => setSelectedConversationId(conversation.id)}
-                      className={`p-4 border-b cursor-pointer transition-colors ${
-                        selectedConversationId === conversation.id
-                          ? theme === 'dark' ? 'bg-gray-700' : 'bg-blue-50'
-                          : theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-50'
-                      } ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}
-                    >
-                    <div className="flex items-center space-x-3">
-                      <div className="relative">
-                        <Avatar
-                          sx={{
-                            width: 48,
-                            height: 48,
-                            bgcolor: getAvatarColor(conversation.name),
-                            fontSize: '1rem',
-                            fontWeight: 'bold'
-                          }}
-                        >
-                          {conversation.avatar}
-                        </Avatar>
-                        {conversation.online && (
-                          <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
-                        )}
-                      </div>
-                      
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center justify-between">
-                          <h3 className={`font-medium truncate ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                            {conversation.name}
-                          </h3>
-                          <span className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
-                            {conversation.time}
-                          </span>
-                        </div>
-                        
-                        <div className="flex items-center justify-between mt-1">
-                          <p className={`text-sm truncate ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
-                            {conversation.lastMessage}
-                          </p>
-                          {conversation.unread > 0 && (
-                            <span className="bg-blue-500 text-white text-xs rounded-full px-2 py-1 min-w-[20px] text-center">
-                              {conversation.unread}
-                            </span>
-                          )}
-                        </div>
-                        
-                        <div className="flex items-center mt-1">
-                          <span className={`text-xs px-2 py-1 rounded-full ${
-                            conversation.type === 'tutor' 
-                              ? 'bg-purple-100 text-purple-800' 
-                              : 'bg-green-100 text-green-800'
-                          }`}>
-                            {conversation.type === 'tutor' ? t('messages.tutor') : t('messages.student')}
-                          </span>
-                          <span className={`text-xs ml-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
-                            {conversation.subject}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                      t={t}
+                    />
                   ))
                 )}
               </div>
@@ -1581,61 +1445,12 @@ const Messages: React.FC = () => {
                           const currentUserIdForComparison = currentUser?.userId || currentUser?.id || ''
                           const isOwnMessage = message.senderId === currentUserIdForComparison
                           return (
-                            <div
+                            <MessageBubble
                               key={message.id}
-                              className={`flex ${isOwnMessage ? 'justify-end' : 'justify-start'} mb-2`}
-                            >
-                              <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
-                                isOwnMessage
-                                  ? theme === 'dark' ? 'bg-blue-600' : 'bg-blue-500'
-                                  : theme === 'dark' ? 'bg-gray-700' : 'bg-gray-200'
-                              } ${isOwnMessage ? 'text-white' : theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                                {/* File Message */}
-                                {message.type === 'file' && message.fileUrl && (
-                                  <div className="mb-2">
-                                    <a
-                                      href={message.fileUrl}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="flex items-center space-x-2 hover:underline"
-                                    >
-                                      <AttachFileIcon className="w-4 h-4" />
-                                      <span className="break-words">{message.content}</span>
-                                    </a>
-                                  </div>
-                                )}
-                                {/* Image Message */}
-                                {message.type === 'image' && message.fileUrl && (
-                                  <div className="mb-2">
-                                    <a
-                                      href={message.fileUrl}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="block"
-                                    >
-                                      <img
-                                        src={message.fileUrl}
-                                        alt={message.content}
-                                        className="max-w-full h-auto rounded-lg cursor-pointer"
-                                        style={{ maxHeight: '300px' }}
-                                      />
-                                    </a>
-                                    <p className="text-xs mt-1 break-words">{message.content}</p>
-                                  </div>
-                                )}
-                                {/* Text Message */}
-                                {message.type === 'text' && (
-                                  <p className="break-words">{message.content || '(No content)'}</p>
-                                )}
-                                <span className={`text-xs block mt-1 ${
-                                  isOwnMessage
-                                    ? theme === 'dark' ? 'text-blue-200' : 'text-blue-100'
-                                    : theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
-                                }`}>
-                                  {formatDistanceToNow(new Date(message.createdAt), { addSuffix: true })}
-                                </span>
-                              </div>
-                            </div>
+                              message={message}
+                              isOwnMessage={isOwnMessage}
+                              theme={theme}
+                            />
                           )
                         })}
                         <div ref={messagesEndRef} style={{ height: '1px' }} />

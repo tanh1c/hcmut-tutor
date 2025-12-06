@@ -89,6 +89,11 @@ const ChatbotSupport: React.FC = () => {
     setMobileOpen(!mobileOpen)
   }
 
+  // Auto-scroll to bottom when new message is added
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [messages, isTyping])
+
   const quickActions = [
     { text: t('chatbotSupport.quickActions.bookSession'), icon: <Schedule />, action: 'schedule' },
     { text: t('chatbotSupport.quickActions.findTutor'), icon: <Person />, action: 'tutor' },
@@ -283,7 +288,13 @@ const ChatbotSupport: React.FC = () => {
     }, 100)
 
     try {
-      const response = await chatbotAPI.chat(currentInput, conversationId)
+      // Prepare conversation history for context
+      const conversationHistory = messages.slice(-10).map(msg => ({
+        sender: msg.sender,
+        text: msg.text
+      }))
+      
+      const response = await chatbotAPI.sendMessage(currentInput, conversationHistory)
       
       if (response.success) {
       const botResponse: Message = {

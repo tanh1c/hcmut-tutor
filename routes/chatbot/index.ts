@@ -1,207 +1,128 @@
 /**
- * Chatbot API Routes
- * POST /api/chatbot/chat - Send message to AI chatbot
- * GET /api/chatbot/history - Get conversation history
+ * Chatbot API Route
+ * Handles chatbot requests using Gemini API with user context
  */
 
+import 'dotenv/config'; // Load .env file
 import { Response } from 'express';
 import { AuthRequest } from '../../lib/middleware.js';
-import { storage } from '../../lib/storage.js';
 import { generateAIResponse, isGeminiConfigured } from '../../lib/services/geminiService.js';
-import { successResponse, errorResponse } from '../../lib/utils.js';
-import { nanoid } from 'nanoid';
-
-interface ChatMessage {
-  id: string;
-  conversationId: string;
-  userId: string;
-  role: 'user' | 'assistant';
-  content: string;
-  createdAt: string;
-}
-
-interface Conversation {
-  id: string;
-  userId: string;
-  messages: ChatMessage[];
-  createdAt: string;
-  updatedAt: string;
-}
 
 /**
- * POST /api/chatbot/chat
- * Send a message to the chatbot and get AI response
+ * Chatbot handler - sends message to Gemini and returns response with user context
  */
-export async function chatHandler(req: AuthRequest, res: Response) {
+export async function chatbotHandler(req: AuthRequest, res: Response) {
   try {
-    const { message, conversationId } = req.body;
-    const userId = req.user!.userId;
+    const { message, conversationHistory = [], conversationId } = req.body;
 
-    // Validate input
-    if (!message || typeof message !== 'string' || message.trim().length === 0) {
-      return res.status(400).json(
-        errorResponse('Tin nhắn không được để trống')
-      );
+    if (!message || typeof message !== 'string' || message.trim() === '') {
+      return res.status(400).json({
+        success: false,
+        error: 'Message is required'
+      });
+    }
+
+    // Check if user is authenticated
+    if (!req.user || !req.user.userId) {
+      return res.status(401).json({
+        success: false,
+        error: 'Authentication required'
+      });
     }
 
     // Check if Gemini is configured
     if (!isGeminiConfigured()) {
-      return res.status(500).json(
-        errorResponse('Chatbot chưa được cấu hình. Vui lòng liên hệ quản trị viên.')
-      );
+      console.error('GEMINI_API_KEY is not set in environment variables');
+      return res.status(500).json({
+        success: false,
+        error: 'Chatbot service is not configured. GEMINI_API_KEY is missing.'
+      });
     }
 
-    // Get or create conversation
-    let conversation: Conversation | null = null;
-    let currentConversationId = conversationId;
-
-    if (currentConversationId) {
-      const conversations = await storage.find<Conversation>(
-        'chatbot-conversations.json',
-        c => c.id === currentConversationId && c.userId === userId
-      );
-      conversation = conversations[0] || null;
-    }
-
-    if (!conversation) {
-      // Create new conversation
-      currentConversationId = `conv_${nanoid()}`;
-      conversation = {
-        id: currentConversationId,
-        userId,
-        messages: [],
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
-      };
-      await storage.create<Conversation>('chatbot-conversations.json', conversation);
-    }
-
-    // Save user message
-    const userMessage: ChatMessage = {
-      id: `msg_${nanoid()}`,
-      conversationId: currentConversationId,
-      userId,
-      role: 'user',
-      content: message.trim(),
-      createdAt: new Date().toISOString()
-    };
-
-    conversation.messages.push(userMessage);
-    await storage.update<Conversation>(
-      'chatbot-conversations.json',
-      currentConversationId,
-      {
-        messages: conversation.messages,
-        updatedAt: new Date().toISOString()
-      }
-    );
-
-    // Get conversation history for context (last 10 messages)
-    const historyMessages = conversation.messages.slice(-10).map(msg => ({
-      role: msg.role,
-      content: msg.content
+    // Convert conversation history format from frontend to geminiService format
+    // Frontend format: { sender: 'user' | 'bot', text: string }
+    // geminiService format: { role: 'user' | 'assistant', content: string }
+    const formattedHistory = conversationHistory.map((msg: any) => ({
+      role: msg.sender === 'user' ? 'user' as const : 'assistant' as const,
+      content: msg.text || msg.content || ''
     }));
 
-    // Generate AI response
+    // Generate AI response with user context
+    const userId = req.user.userId;
     const aiResponse = await generateAIResponse(
       message.trim(),
       userId,
-      historyMessages
+      formattedHistory
     );
 
-    // Save AI response
-    const assistantMessage: ChatMessage = {
-      id: `msg_${nanoid()}`,
-      conversationId: currentConversationId,
-      userId,
-      role: 'assistant',
-      content: aiResponse,
-      createdAt: new Date().toISOString()
-    };
-
-    conversation.messages.push(assistantMessage);
-    await storage.update<Conversation>(
-      'chatbot-conversations.json',
-      currentConversationId,
-      {
-        messages: conversation.messages,
-        updatedAt: new Date().toISOString()
-      }
-    );
-
-    return res.json(
-      successResponse({
+    return res.json({
+      success: true,
+      data: {
         message: aiResponse,
-        conversationId: currentConversationId,
-        messageId: assistantMessage.id
-      })
-    );
+        timestamp: new Date().toISOString(),
+        conversationId: conversationId || undefined // Return conversationId if provided
+      }
+    });
+
   } catch (error: any) {
-    console.error('Chatbot error:', error);
-    return res.status(500).json(
-      errorResponse(error.message || 'Lỗi khi xử lý tin nhắn')
-    );
+    console.error('Chatbot API error:', error);
+    
+    // Handle specific Gemini API errors
+    if (error.message?.includes('API_KEY') || error.message?.includes('cấu hình API') || error.status === 401) {
+      return res.status(401).json({
+        success: false,
+        error: 'Invalid API key. Please check your GEMINI_API_KEY.'
+      });
+    }
+
+    if (error.message?.includes('quota') || error.message?.includes('rate limit') || error.message?.includes('giới hạn API') || error.status === 429) {
+      return res.status(429).json({
+        success: false,
+        error: 'Rate limit exceeded. Please try again later.'
+      });
+    }
+
+    if (error.status === 503 || error.message?.includes('overloaded') || error.message?.includes('Service Unavailable')) {
+      return res.status(503).json({
+        success: false,
+        error: 'The AI service is temporarily unavailable. Please try again in a few moments.'
+      });
+    }
+
+    if (error.message?.includes('model') || error.status === 404) {
+      return res.status(400).json({
+        success: false,
+        error: 'Model not found. Please check the model name.'
+      });
+    }
+
+    // Return error message from geminiService (may be in Vietnamese)
+    return res.status(500).json({
+      success: false,
+      error: error.message || 'Failed to generate response. Please try again.'
+    });
   }
 }
 
 /**
- * GET /api/chatbot/history
- * Get conversation history for the current user
+ * Get conversation history handler
+ * For now, returns empty array as we're not storing conversation history
  */
 export async function getHistoryHandler(req: AuthRequest, res: Response) {
   try {
-    const userId = req.user!.userId;
-    const { conversationId, limit = 50 } = req.query;
-
-    if (conversationId) {
-      // Get specific conversation
-      const conversations = await storage.find<Conversation>(
-        'chatbot-conversations.json',
-        c => c.id === conversationId && c.userId === userId
-      );
-
-      if (conversations.length === 0) {
-        return res.status(404).json(
-          errorResponse('Không tìm thấy cuộc trò chuyện')
-        );
+    // For now, return empty conversations list
+    // In the future, this can be implemented to fetch from storage
+    return res.json({
+      success: true,
+      data: {
+        conversations: []
       }
-
-      return res.json(
-        successResponse({
-          conversation: conversations[0],
-          messages: conversations[0].messages.slice(-Number(limit))
-        })
-      );
-    } else {
-      // Get all conversations for user
-      const conversations = await storage.find<Conversation>(
-        'chatbot-conversations.json',
-        c => c.userId === userId
-      );
-
-      // Sort by updatedAt descending
-      conversations.sort((a, b) => 
-        new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
-      );
-
-      return res.json(
-        successResponse({
-          conversations: conversations.map(conv => ({
-            id: conv.id,
-            userId: conv.userId,
-            lastMessage: conv.messages[conv.messages.length - 1],
-            messageCount: conv.messages.length,
-            createdAt: conv.createdAt,
-            updatedAt: conv.updatedAt
-          }))
-        })
-      );
-    }
+    });
   } catch (error: any) {
     console.error('Get history error:', error);
-    return res.status(500).json(
-      errorResponse('Lỗi khi lấy lịch sử trò chuyện')
-    );
+    return res.status(500).json({
+      success: false,
+      error: error.message || 'Failed to get conversation history'
+    });
   }
 }
-

@@ -1,4 +1,4 @@
-/**
+  /**
  * MongoDB Connection Utility
  * Manages MongoDB connection and provides database instance
  */
