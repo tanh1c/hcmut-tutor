@@ -1,4 +1,45 @@
-<!-- 9aece424-3dd1-4ebb-acde-7df61ff0b831 0f7e01b3-084d-416c-bb86-5d980fe4cc45 -->
+---
+name: Kế hoạch Triển khai Backend Management Module
+overview: ""
+todos:
+  - id: 186edc30-4574-4d08-bee3-2f4599808e4c
+    content: "Implement UC-M1: Accept/Reject Requests API - Tạo routes/management/approvals với các endpoints approve, reject, clarify, escalate. Implement business logic validate requests, notify stakeholders, update system, handle 48-hour deadline."
+    status: pending
+  - id: 6e16d7c9-9152-42e2-adb7-889285880a23
+    content: "Implement UC-M7: Manage User Permissions API - Tạo routes/management/permissions với các endpoints list users, update permissions, revoke permissions, grant temporary permissions. Implement sync với HCMUT_DATACORE (mock), audit logging."
+    status: pending
+  - id: 8f906130-b3f0-4d58-adf3-5b943146c948
+    content: "Implement UC-M2: Optimize Resource Allocation API - Tạo routes/management/resources với các endpoints overview, identify inefficiencies, optimize, apply optimization, manual override. Implement resource optimization logic trong lib/services/resourceOptimizer.ts."
+    status: pending
+  - id: 8abc0592-ddee-46ae-99f8-37495410c728
+    content: "Implement UC-M3: Create Progress Reports API - Tạo routes/management/reports/progress với các endpoints list, create, get, export reports. Implement report generation logic trong lib/services/reportGenerator.ts với support PDF/Excel export."
+    status: pending
+  - id: a1a7627f-64e4-43b8-810b-35e1b2cc675e
+    content: "Implement UC-M4: Analyze Academic Performance API - Tạo routes/management/analytics/performance với các endpoints analyze, compare, get KPIs. Implement performance analysis logic trong lib/services/performanceAnalyzer.ts."
+    status: pending
+  - id: 740c3f58-db0a-4a42-9cb0-7b8dd7a6fb9f
+    content: "Implement UC-M5: Award Training Credits API - Tạo routes/management/credits với các endpoints get eligible students, award credits, get history, revoke credits. Implement credit awarding logic với policy validation, duplicate check, audit logging."
+    status: pending
+  - id: 73b26b82-2ae7-4638-b881-601b15ba358f
+    content: "Implement UC-M6: Manage Document Sharing API - Tạo routes/management/documents với các endpoints list, upload, update, delete, share, manage access. Implement document management logic với file validation, encryption, malware scanning, access control."
+    status: pending
+  - id: e2c1f338-b922-4daf-9ca2-6ffb0dc62658
+    content: "Implement UC-M8: Facilitate Online Community API - Tạo routes/management/community với các endpoints manage forums, share resources, create events, restrict access. Implement community management logic với access control, encryption, activity logging."
+    status: pending
+  - id: fbb24737-afdf-41ff-8e24-c99ca4c3424c
+    content: Tạo seed data cho management module - Mở rộng data/approvals.json, tạo data/permissions-audit.json, data/resource-allocation.json, data/progress-reports.json, data/analytics.json, data/training-credits.json, data/document-sharing.json, data/community-resources.json. Tạo scripts/seed-management.ts để generate seed data.
+    status: pending
+  - id: 640b3709-d4a1-4526-907c-2da1449c65a4
+    content: Update types và schemas - Mở rộng lib/types.ts với types cho management features (ApprovalRequest, ResourceAllocation, ProgressReport, PerformanceAnalysis, TrainingCredit, DocumentSharing, CommunityResource, PermissionAudit). Thêm validation schemas vào lib/schemas.ts.
+    status: pending
+  - id: 24672a90-4cbc-449b-89a5-20a05f144a09
+    content: Integrate management routes vào server - Update server.ts để thêm tất cả management routes. Update lib/middleware.ts với authorization cho management roles. Test tất cả endpoints với Postman/Thunder Client.
+    status: pending
+  - id: 46716036-2479-44a0-b22e-533eb983fe14
+    content: Update frontend để integrate với backend APIs - Update src/pages/management/ApprovalRequests.tsx, AwardCredits.tsx, ReportsAnalytics.tsx để sử dụng real APIs thay vì mock data. Test end-to-end workflows.
+    status: pending
+---
+
 # Kế hoạch Triển khai Backend Management Module
 
 ## Tổng quan
@@ -401,18 +442,3 @@ POST   /api/management/community/events       # Create virtual event
 - Seed data đầy đủ cho testing
 - Frontend có thể integrate với backend APIs
 - Documentation đầy đủ cho các APIs
-
-### To-dos
-
-- [ ] Implement UC-M1: Accept/Reject Requests API - Tạo routes/management/approvals với các endpoints approve, reject, clarify, escalate. Implement business logic validate requests, notify stakeholders, update system, handle 48-hour deadline.
-- [ ] Implement UC-M7: Manage User Permissions API - Tạo routes/management/permissions với các endpoints list users, update permissions, revoke permissions, grant temporary permissions. Implement sync với HCMUT_DATACORE (mock), audit logging.
-- [ ] Implement UC-M2: Optimize Resource Allocation API - Tạo routes/management/resources với các endpoints overview, identify inefficiencies, optimize, apply optimization, manual override. Implement resource optimization logic trong lib/services/resourceOptimizer.ts.
-- [ ] Implement UC-M3: Create Progress Reports API - Tạo routes/management/reports/progress với các endpoints list, create, get, export reports. Implement report generation logic trong lib/services/reportGenerator.ts với support PDF/Excel export.
-- [ ] Implement UC-M4: Analyze Academic Performance API - Tạo routes/management/analytics/performance với các endpoints analyze, compare, get KPIs. Implement performance analysis logic trong lib/services/performanceAnalyzer.ts.
-- [ ] Implement UC-M5: Award Training Credits API - Tạo routes/management/credits với các endpoints get eligible students, award credits, get history, revoke credits. Implement credit awarding logic với policy validation, duplicate check, audit logging.
-- [ ] Implement UC-M6: Manage Document Sharing API - Tạo routes/management/documents với các endpoints list, upload, update, delete, share, manage access. Implement document management logic với file validation, encryption, malware scanning, access control.
-- [ ] Implement UC-M8: Facilitate Online Community API - Tạo routes/management/community với các endpoints manage forums, share resources, create events, restrict access. Implement community management logic với access control, encryption, activity logging.
-- [ ] Tạo seed data cho management module - Mở rộng data/approvals.json, tạo data/permissions-audit.json, data/resource-allocation.json, data/progress-reports.json, data/analytics.json, data/training-credits.json, data/document-sharing.json, data/community-resources.json. Tạo scripts/seed-management.ts để generate seed data.
-- [ ] Update types và schemas - Mở rộng lib/types.ts với types cho management features (ApprovalRequest, ResourceAllocation, ProgressReport, PerformanceAnalysis, TrainingCredit, DocumentSharing, CommunityResource, PermissionAudit). Thêm validation schemas vào lib/schemas.ts.
-- [ ] Integrate management routes vào server - Update server.ts để thêm tất cả management routes. Update lib/middleware.ts với authorization cho management roles. Test tất cả endpoints với Postman/Thunder Client.
-- [ ] Update frontend để integrate với backend APIs - Update src/pages/management/ApprovalRequests.tsx, AwardCredits.tsx, ReportsAnalytics.tsx để sử dụng real APIs thay vì mock data. Test end-to-end workflows.

@@ -146,11 +146,11 @@ const ResourceAllocation: React.FC = () => {
         setOverview(response.data.overview)
         setWorkloads(response.data.workloads || [])
       } else {
-        setErrorMessage(response.error || 'Lỗi tải tổng quan tài nguyên')
+        setErrorMessage(response.error || 'Error loading resource overview')
       }
     } catch (error: any) {
       console.error('Error loading overview:', error)
-      setErrorMessage('Lỗi tải tổng quan tài nguyên: ' + (error.message || 'Unknown error'))
+      setErrorMessage('Error loading resource overview: ' + (error.message || 'Unknown error'))
     } finally {
       setOverviewLoading(false)
     }
@@ -171,11 +171,11 @@ const ResourceAllocation: React.FC = () => {
       if (response.success) {
         setInefficiencies(response.data.inefficiencies || [])
       } else {
-        setErrorMessage(response.error || 'Lỗi tải danh sách không hiệu quả')
+        setErrorMessage(response.error || 'Error loading inefficiencies list')
       }
     } catch (error: any) {
       console.error('Error loading inefficiencies:', error)
-      setErrorMessage('Lỗi tải danh sách không hiệu quả: ' + (error.message || 'Unknown error'))
+      setErrorMessage('Error loading inefficiencies list: ' + (error.message || 'Unknown error'))
     } finally {
       setInefficienciesLoading(false)
     }
@@ -196,11 +196,11 @@ const ResourceAllocation: React.FC = () => {
         setIsOptimizeDialogOpen(false)
         setActiveTab(2)
       } else {
-        setErrorMessage(response.error || 'Lỗi tạo kế hoạch tối ưu hóa')
+        setErrorMessage(response.error || 'Error creating optimization plan')
       }
     } catch (error: any) {
       console.error('Error generating optimization plan:', error)
-      setErrorMessage('Lỗi tạo kế hoạch tối ưu hóa: ' + (error.message || 'Unknown error'))
+      setErrorMessage('Error creating optimization plan: ' + (error.message || 'Unknown error'))
     } finally {
       setOptimizationLoading(false)
     }
@@ -209,7 +209,7 @@ const ResourceAllocation: React.FC = () => {
   // Apply optimization
   const applyOptimization = useCallback(async () => {
     if (selectedChanges.size === 0) {
-      setErrorMessage('Vui lòng chọn ít nhất một thay đổi để áp dụng')
+      setErrorMessage('Please select at least one change to apply')
       return
     }
 
@@ -222,7 +222,7 @@ const ResourceAllocation: React.FC = () => {
         description: optimizationDescription || undefined
       })
       if (response.success) {
-        setSuccessMessage('Đã tạo yêu cầu phê duyệt tối ưu hóa thành công. Vui lòng chờ phê duyệt từ management.')
+        setSuccessMessage('Optimization approval request created successfully. Please wait for management approval.')
         setIsApplyDialogOpen(false)
         setOptimizationPlan(null)
         setSelectedChanges(new Set())
@@ -235,11 +235,11 @@ const ResourceAllocation: React.FC = () => {
           navigate('/management/approval')
         }, 2000)
       } else {
-        setErrorMessage(response.error || 'Lỗi áp dụng tối ưu hóa')
+        setErrorMessage(response.error || 'Error applying optimization')
       }
     } catch (error: any) {
       console.error('Error applying optimization:', error)
-      setErrorMessage('Lỗi áp dụng tối ưu hóa: ' + (error.message || 'Unknown error'))
+      setErrorMessage('Error applying optimization: ' + (error.message || 'Unknown error'))
     } finally {
       setApplyLoading(false)
     }
@@ -260,11 +260,11 @@ const ResourceAllocation: React.FC = () => {
           }
         }
       } else {
-        setErrorMessage(response.error || 'Lỗi tải danh sách phòng học')
+        setErrorMessage(response.error || 'Error loading rooms list')
       }
     } catch (error: any) {
       console.error('Error loading rooms:', error)
-      setErrorMessage('Lỗi tải danh sách phòng học: ' + (error.message || 'Unknown error'))
+      setErrorMessage('Error loading rooms list: ' + (error.message || 'Unknown error'))
     } finally {
       setRoomsLoading(false)
     }
@@ -310,8 +310,8 @@ const ResourceAllocation: React.FC = () => {
       console.log('📅 Date range:', {
         startDate: startDate.toISOString(),
         endDate: endDate.toISOString(),
-        startDateLocal: startDate.toLocaleString('vi-VN'),
-        endDateLocal: endDate.toLocaleString('vi-VN')
+        startDateLocal: startDate.toLocaleString('en-US'),
+        endDateLocal: endDate.toLocaleString('en-US')
       })
       
       // Debug: Log all offline sessions with locations
@@ -389,7 +389,7 @@ const ResourceAllocation: React.FC = () => {
       setRoomSessions(roomSessions)
     } catch (error: any) {
       console.error('Error loading room sessions:', error)
-      setErrorMessage('Lỗi tải lịch sử sử dụng phòng: ' + (error.message || 'Unknown error'))
+      setErrorMessage('Error loading room usage history: ' + (error.message || 'Unknown error'))
       setRoomSessions([])
     } finally {
       setRoomSessionsLoading(false)
@@ -435,13 +435,13 @@ const ResourceAllocation: React.FC = () => {
   const getWorkloadLabel = (workload: string) => {
     switch (workload) {
       case 'overloaded':
-        return 'Quá tải'
+        return 'Overloaded'
       case 'high':
-        return 'Cao'
+        return 'High'
       case 'medium':
-        return 'Trung bình'
+        return 'Medium'
       case 'low':
-        return 'Thấp'
+        return 'Low'
       default:
         return workload
     }
@@ -465,11 +465,11 @@ const ResourceAllocation: React.FC = () => {
   const getSeverityLabel = (severity: string) => {
     switch (severity) {
       case 'high':
-        return 'Cao'
+        return 'High'
       case 'medium':
-        return 'Trung bình'
+        return 'Medium'
       case 'low':
-        return 'Thấp'
+        return 'Low'
       default:
         return severity
     }
@@ -479,13 +479,13 @@ const ResourceAllocation: React.FC = () => {
   const getInefficiencyTypeLabel = (type: string) => {
     switch (type) {
       case 'overloaded_tutor':
-        return 'Tutor quá tải'
+        return 'Overloaded Tutor'
       case 'underutilized_tutor':
-        return 'Tutor chưa sử dụng hiệu quả'
+        return 'Underutilized Tutor'
       case 'unbalanced_group':
-        return 'Nhóm không cân bằng'
+        return 'Unbalanced Group'
       case 'resource_conflict':
-        return 'Xung đột tài nguyên'
+        return 'Resource Conflict'
       default:
         return type
     }
@@ -495,11 +495,11 @@ const ResourceAllocation: React.FC = () => {
   const getChangeTypeLabel = (type: string) => {
     switch (type) {
       case 'reallocate_session':
-        return 'Phân bổ lại session'
+        return 'Reallocate Session'
       case 'adjust_group_size':
-        return 'Điều chỉnh kích thước nhóm'
+        return 'Adjust Group Size'
       case 'modify_schedule':
-        return 'Thay đổi lịch'
+        return 'Modify Schedule'
       default:
         return type
     }
@@ -520,17 +520,17 @@ const ResourceAllocation: React.FC = () => {
 
   // Equipment name map
   const equipmentNameMap: Record<string, string> = {
-    'whiteboard': 'Bảng trắng',
-    'projector': 'Máy chiếu',
-    'computer': 'Máy tính',
-    'sound_system': 'Hệ thống âm thanh',
-    'microphone': 'Micro',
+    'whiteboard': 'Whiteboard',
+    'projector': 'Projector',
+    'computer': 'Computer',
+    'sound_system': 'Sound System',
+    'microphone': 'Microphone',
     'camera': 'Camera',
-    'Bảng trắng': 'Bảng trắng',
-    'Máy chiếu': 'Máy chiếu',
-    'Máy tính': 'Máy tính',
-    'Hệ thống âm thanh': 'Hệ thống âm thanh',
-    'Micro': 'Micro',
+    'Bảng trắng': 'Whiteboard',
+    'Máy chiếu': 'Projector',
+    'Máy tính': 'Computer',
+    'Hệ thống âm thanh': 'Sound System',
+    'Micro': 'Microphone',
     'Camera': 'Camera'
   }
 
@@ -601,8 +601,8 @@ const ResourceAllocation: React.FC = () => {
   // Format date/time
   const formatDateTime = (dateString: string) => {
     const date = new Date(dateString)
-    const dateStr = date.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' })
-    const timeStr = date.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })
+    const dateStr = date.toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' })
+    const timeStr = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
     return { date: dateStr, time: timeStr }
   }
 
@@ -832,7 +832,7 @@ const ResourceAllocation: React.FC = () => {
                 <div className="text-center py-8">
                   <LinearProgress className="mb-4" />
                   <p className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
-                    Đang tải tổng quan tài nguyên...
+                    Loading resource overview...
                   </p>
                 </div>
               ) : overview ? (
@@ -850,7 +850,7 @@ const ResourceAllocation: React.FC = () => {
                       <div className="flex items-center justify-between">
                         <div>
                           <p className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-                            Tổng số Tutors
+                            Total Tutors
                           </p>
                           <p className={`text-2xl font-bold mt-1 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                             {overview.totalTutors || 0}
@@ -870,7 +870,7 @@ const ResourceAllocation: React.FC = () => {
                       <div className="flex items-center justify-between">
                         <div>
                           <p className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-                            Tổng số Giờ
+                            Total Hours
                           </p>
                           <p className={`text-2xl font-bold mt-1 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                             {overview.totalHours?.toFixed(1) || 0}
@@ -890,7 +890,7 @@ const ResourceAllocation: React.FC = () => {
                       <div className="flex items-center justify-between">
                         <div>
                           <p className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-                            Tổng số Học sinh
+                            Total Students
                           </p>
                           <p className={`text-2xl font-bold mt-1 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                             {overview.totalStudents || 0}
@@ -910,7 +910,7 @@ const ResourceAllocation: React.FC = () => {
                       <div className="flex items-center justify-between">
                         <div>
                           <p className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-                            Tutors quá tải
+                            Overloaded Tutors
                           </p>
                           <p className={`text-2xl font-bold mt-1 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                             {overview.workloadDistribution?.overloaded || 0}
@@ -931,12 +931,12 @@ const ResourceAllocation: React.FC = () => {
                     }}
                   >
                     <h2 className={`text-xl font-bold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                      Phân bổ Workload
+                      Workload Distribution
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                       <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-red-900/20' : 'bg-red-50'}`}>
                         <p className={`text-sm font-medium ${theme === 'dark' ? 'text-red-400' : 'text-red-600'}`}>
-                          Quá tải
+                          Overloaded
                         </p>
                         <p className={`text-2xl font-bold mt-1 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                           {overview.workloadDistribution?.overloaded || 0}
@@ -944,7 +944,7 @@ const ResourceAllocation: React.FC = () => {
                       </div>
                       <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-yellow-900/20' : 'bg-yellow-50'}`}>
                         <p className={`text-sm font-medium ${theme === 'dark' ? 'text-yellow-400' : 'text-yellow-600'}`}>
-                          Cao
+                          High
                         </p>
                         <p className={`text-2xl font-bold mt-1 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                           {overview.workloadDistribution?.high || 0}
@@ -952,7 +952,7 @@ const ResourceAllocation: React.FC = () => {
                       </div>
                       <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-blue-900/20' : 'bg-blue-50'}`}>
                         <p className={`text-sm font-medium ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`}>
-                          Trung bình
+                          Medium
                         </p>
                         <p className={`text-2xl font-bold mt-1 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                           {overview.workloadDistribution?.medium || 0}
@@ -960,7 +960,7 @@ const ResourceAllocation: React.FC = () => {
                       </div>
                       <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-green-900/20' : 'bg-green-50'}`}>
                         <p className={`text-sm font-medium ${theme === 'dark' ? 'text-green-400' : 'text-green-600'}`}>
-                          Thấp
+                          Low
                         </p>
                         <p className={`text-2xl font-bold mt-1 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                           {overview.workloadDistribution?.low || 0}
@@ -979,7 +979,7 @@ const ResourceAllocation: React.FC = () => {
                     }}
                   >
                     <h2 className={`text-xl font-bold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                      Workload của Tutors
+                      Tutor Workloads
                     </h2>
                     <div className="overflow-x-auto">
                       <table className="min-w-full divide-y divide-gray-200">
@@ -989,10 +989,10 @@ const ResourceAllocation: React.FC = () => {
                               Tutor
                             </th>
                             <th className={`px-6 py-3 text-left text-xs font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'} uppercase tracking-wider`}>
-                              Tổng Giờ
+                              Total Hours
                             </th>
                             <th className={`px-6 py-3 text-left text-xs font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'} uppercase tracking-wider`}>
-                              Số Học sinh
+                              Number of Students
                             </th>
                             <th className={`px-6 py-3 text-left text-xs font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'} uppercase tracking-wider`}>
                               Workload
@@ -1028,7 +1028,7 @@ const ResourceAllocation: React.FC = () => {
               ) : (
                 <div className="text-center py-8">
                   <p className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
-                    Không có dữ liệu tổng quan
+                    No overview data available
                   </p>
                 </div>
               )}
@@ -1053,7 +1053,7 @@ const ResourceAllocation: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className={`block text-sm font-medium mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-                      Mức độ nghiêm trọng
+                      Severity Level
                     </label>
                     <select
                       value={inefficiencyFilters.severity}
@@ -1064,15 +1064,15 @@ const ResourceAllocation: React.FC = () => {
                           : 'bg-white border-gray-300 text-gray-900'
                       } focus:outline-none focus:ring-2 focus:ring-blue-500`}
                     >
-                      <option value="all">Tất cả</option>
-                      <option value="high">Cao</option>
-                      <option value="medium">Trung bình</option>
-                      <option value="low">Thấp</option>
+                      <option value="all">All</option>
+                      <option value="high">High</option>
+                      <option value="medium">Medium</option>
+                      <option value="low">Low</option>
                     </select>
                   </div>
                   <div>
                     <label className={`block text-sm font-medium mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-                      Loại vấn đề
+                      Issue Type
                     </label>
                     <select
                       value={inefficiencyFilters.type}
@@ -1083,11 +1083,11 @@ const ResourceAllocation: React.FC = () => {
                           : 'bg-white border-gray-300 text-gray-900'
                       } focus:outline-none focus:ring-2 focus:ring-blue-500`}
                     >
-                      <option value="all">Tất cả</option>
-                      <option value="overloaded_tutor">Tutor quá tải</option>
-                      <option value="underutilized_tutor">Tutor chưa sử dụng hiệu quả</option>
-                      <option value="unbalanced_group">Nhóm không cân bằng</option>
-                      <option value="resource_conflict">Xung đột tài nguyên</option>
+                      <option value="all">All</option>
+                      <option value="overloaded_tutor">Overloaded Tutor</option>
+                      <option value="underutilized_tutor">Underutilized Tutor</option>
+                      <option value="unbalanced_group">Unbalanced Group</option>
+                      <option value="resource_conflict">Resource Conflict</option>
                     </select>
                   </div>
                 </div>
@@ -1098,7 +1098,7 @@ const ResourceAllocation: React.FC = () => {
                 <div className="text-center py-8">
                   <LinearProgress className="mb-4" />
                   <p className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
-                    Đang tải danh sách vấn đề...
+                    Loading issues list...
                   </p>
                 </div>
               ) : inefficiencies.length > 0 ? (
@@ -1133,7 +1133,7 @@ const ResourceAllocation: React.FC = () => {
                           {inefficiency.suggestedActions && inefficiency.suggestedActions.length > 0 && (
                             <div className="mt-4">
                               <p className={`text-sm font-medium mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-                                Hành động đề xuất:
+                                Suggested Actions:
                               </p>
                               <ul className={`list-disc list-inside space-y-1 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                                 {inefficiency.suggestedActions.map((action: string, index: number) => (
@@ -1150,7 +1150,7 @@ const ResourceAllocation: React.FC = () => {
               ) : (
                 <div className="text-center py-8">
                   <p className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
-                    Không có vấn đề nào được phát hiện
+                    No issues detected
                   </p>
                 </div>
               )}
@@ -1184,7 +1184,7 @@ const ResourceAllocation: React.FC = () => {
                         variant="outlined"
                         size="small"
                       >
-                        Tạo mới
+                        Create New
                       </Button>
                     </div>
                     <p className={`text-sm mb-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
@@ -1195,7 +1195,7 @@ const ResourceAllocation: React.FC = () => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                       <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-blue-900/20' : 'bg-blue-50'}`}>
                         <p className={`text-sm font-medium ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`}>
-                          Giảm Workload
+                          Workload Reduction
                         </p>
                         <p className={`text-2xl font-bold mt-1 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                           {optimizationPlan.estimatedImpact?.workloadReduction?.toFixed(0) || 0}%
@@ -1203,7 +1203,7 @@ const ResourceAllocation: React.FC = () => {
                       </div>
                       <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-green-900/20' : 'bg-green-50'}`}>
                         <p className={`text-sm font-medium ${theme === 'dark' ? 'text-green-400' : 'text-green-600'}`}>
-                          Cải thiện Cân bằng
+                          Balance Improvement
                         </p>
                         <p className={`text-2xl font-bold mt-1 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                           {optimizationPlan.estimatedImpact?.balanceImprovement?.toFixed(0) || 0}%
@@ -1211,7 +1211,7 @@ const ResourceAllocation: React.FC = () => {
                       </div>
                       <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-purple-900/20' : 'bg-purple-50'}`}>
                         <p className={`text-sm font-medium ${theme === 'dark' ? 'text-purple-400' : 'text-purple-600'}`}>
-                          Sử dụng Tài nguyên
+                          Resource Utilization
                         </p>
                         <p className={`text-2xl font-bold mt-1 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                           {optimizationPlan.estimatedImpact?.resourceUtilization?.toFixed(0) || 0}%
@@ -1222,7 +1222,7 @@ const ResourceAllocation: React.FC = () => {
                     {/* Changes List */}
                     <div className="mb-6">
                       <h3 className={`text-lg font-semibold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                        Các thay đổi đề xuất
+                        Proposed Changes
                       </h3>
                       <div className="space-y-2">
                         {optimizationPlan.changes?.map((change: any, index: number) => (
@@ -1277,7 +1277,7 @@ const ResourceAllocation: React.FC = () => {
                         className="flex items-center space-x-2"
                       >
                         <AutoAwesomeIcon className="w-5 h-5" />
-                        <span>Áp dụng Tối ưu hóa</span>
+                        <span>Apply Optimization</span>
                       </Button>
                     </div>
                   </Card>
@@ -1294,17 +1294,17 @@ const ResourceAllocation: React.FC = () => {
                   <div className="text-center py-8">
                     <AutoAwesomeIcon className={`w-16 h-16 mx-auto mb-4 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-300'}`} />
                     <h2 className={`text-xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                      Tạo Kế hoạch Tối ưu hóa
+                      Create Optimization Plan
                     </h2>
                     <p className={`text-sm mb-6 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-                      Chọn các lĩnh vực tập trung và ràng buộc để tạo kế hoạch tối ưu hóa tài nguyên
+                      Select focus areas and constraints to create a resource optimization plan
                     </p>
                     <Button
                       onClick={() => setIsOptimizeDialogOpen(true)}
                       className="flex items-center space-x-2 mx-auto"
                     >
                       <AutoAwesomeIcon className="w-5 h-5" />
-                      <span>Tạo Kế hoạch Tối ưu hóa</span>
+                      <span>Create Optimization Plan</span>
                     </Button>
                   </div>
                 </Card>
@@ -1330,12 +1330,12 @@ const ResourceAllocation: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   <div>
                     <label className={`block text-sm font-medium mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-                      Tìm kiếm
+                      Search
                     </label>
                     <div className="relative">
                       <input
                         type="text"
-                        placeholder="Tìm phòng, mã phòng..."
+                        placeholder="Search room, room code..."
                         value={roomSearchTerm}
                         onChange={(e) => setRoomSearchTerm(e.target.value)}
                         className={`w-full px-4 py-2 pl-10 rounded-lg border ${
@@ -1351,7 +1351,7 @@ const ResourceAllocation: React.FC = () => {
                   </div>
                   <div>
                     <label className={`block text-sm font-medium mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-                      Tòa nhà
+                      Building
                     </label>
                     <select
                       value={selectedBuilding}
@@ -1362,7 +1362,7 @@ const ResourceAllocation: React.FC = () => {
                           : 'bg-white border-gray-300 text-gray-900'
                       } focus:outline-none focus:ring-2 focus:ring-blue-500`}
                     >
-                      <option value="all">Tất cả</option>
+                      <option value="all">All</option>
                       {buildings.map((building) => (
                         <option key={building.id} value={building.id}>
                           {building.name}
@@ -1372,7 +1372,7 @@ const ResourceAllocation: React.FC = () => {
                   </div>
                   <div>
                     <label className={`block text-sm font-medium mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-                      Thiết bị
+                      Equipment
                     </label>
                     <select
                       value={roomEquipmentFilter}
@@ -1383,7 +1383,7 @@ const ResourceAllocation: React.FC = () => {
                           : 'bg-white border-gray-300 text-gray-900'
                       } focus:outline-none focus:ring-2 focus:ring-blue-500`}
                     >
-                      <option value="all">Tất cả</option>
+                      <option value="all">All</option>
                       {allEquipment.map((equipment) => (
                         <option key={equipment} value={equipment}>
                           {equipmentNameMap[equipment] || equipment}
@@ -1393,7 +1393,7 @@ const ResourceAllocation: React.FC = () => {
                   </div>
                   <div>
                     <label className={`block text-sm font-medium mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-                      Sức chứa
+                      Capacity
                     </label>
                     <select
                       value={roomCapacityFilter}
@@ -1404,10 +1404,10 @@ const ResourceAllocation: React.FC = () => {
                           : 'bg-white border-gray-300 text-gray-900'
                       } focus:outline-none focus:ring-2 focus:ring-blue-500`}
                     >
-                      <option value="all">Tất cả</option>
-                      <option value="small">Nhỏ (&lt; 30)</option>
-                      <option value="medium">Trung bình (30-50)</option>
-                      <option value="large">Lớn (&gt; 50)</option>
+                      <option value="all">All</option>
+                      <option value="small">Small (&lt; 30)</option>
+                      <option value="medium">Medium (30-50)</option>
+                      <option value="large">Large (&gt; 50)</option>
                     </select>
                   </div>
                 </div>
@@ -1418,7 +1418,7 @@ const ResourceAllocation: React.FC = () => {
                 <div className="text-center py-8">
                   <LinearProgress className="mb-4" />
                   <p className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
-                    Đang tải danh sách phòng học...
+                    Loading rooms list...
                   </p>
                 </div>
               ) : filteredBuildings.length > 0 ? (
@@ -1461,10 +1461,10 @@ const ResourceAllocation: React.FC = () => {
                             >
                               <div className="flex items-center">
                                 <span className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                                  Tầng {floor.floorNumber}
+                                  Floor {floor.floorNumber}
                                 </span>
                                 <span className={`ml-2 text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-                                  ({floor.rooms.length} phòng)
+                                  ({floor.rooms.length} rooms)
                                 </span>
                               </div>
                               {isExpanded ? <ExpandLess /> : <ExpandMore />}
@@ -1494,7 +1494,7 @@ const ResourceAllocation: React.FC = () => {
                                       <div className="flex items-center text-sm">
                                         <PeopleIcon className={`w-4 h-4 mr-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`} />
                                         <span className={theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}>
-                                          Sức chứa: {room.capacity}
+                                          Capacity: {room.capacity}
                                         </span>
                                       </div>
                                       {room.equipment && room.equipment.length > 0 && (
@@ -1541,7 +1541,7 @@ const ResourceAllocation: React.FC = () => {
                 <div className="text-center py-8">
                   <RoomIcon className={`w-16 h-16 mx-auto mb-4 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-300'}`} />
                   <p className={`text-lg ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-                    Không tìm thấy phòng học nào
+                    No rooms found
                   </p>
                 </div>
               )}
@@ -1581,31 +1581,31 @@ const ResourceAllocation: React.FC = () => {
             {/* Room Information */}
             <div>
               <h3 className={`text-lg font-semibold mb-3 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                Thông tin phòng học
+                Room Information
               </h3>
               <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-50'} space-y-2`}>
                 <div className="flex justify-between">
-                  <span className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>Mã phòng:</span>
+                  <span className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>Room Code:</span>
                   <span className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                     {selectedRoom?.code}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>Sức chứa:</span>
+                  <span className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>Capacity:</span>
                   <span className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                    {selectedRoom?.capacity} người
+                    {selectedRoom?.capacity} people
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>Tầng:</span>
+                  <span className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>Floor:</span>
                   <span className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                    Tầng {selectedRoom?.floor}
+                    Floor {selectedRoom?.floor}
                   </span>
                 </div>
                 {selectedRoom?.equipment && selectedRoom.equipment.length > 0 && (
                   <div>
                     <span className={`block mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
-                      Thiết bị:
+                      Equipment:
                     </span>
                     <div className="flex flex-wrap gap-2">
                       {selectedRoom.equipment.map((equip: string, idx: number) => (
@@ -1628,12 +1628,12 @@ const ResourceAllocation: React.FC = () => {
             {/* Date Range Filter */}
             <div>
               <h3 className={`text-lg font-semibold mb-3 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                Lọc theo ngày
+                Filter by Date
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <TextField
                   fullWidth
-                  label="Từ ngày"
+                  label="From Date"
                   type="date"
                   value={roomDateFilter.startDate}
                   onChange={(e) => setRoomDateFilter({ ...roomDateFilter, startDate: e.target.value })}
@@ -1653,7 +1653,7 @@ const ResourceAllocation: React.FC = () => {
                 />
                 <TextField
                   fullWidth
-                  label="Đến ngày"
+                  label="To Date"
                   type="date"
                   value={roomDateFilter.endDate}
                   onChange={(e) => setRoomDateFilter({ ...roomDateFilter, endDate: e.target.value })}
@@ -1678,7 +1678,7 @@ const ResourceAllocation: React.FC = () => {
             <div>
               <div className="flex items-center justify-between mb-3">
                 <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                  Lịch sử sử dụng phòng
+                  Room Usage History
                 </h3>
                 <MuiButton
                   size="small"
@@ -1699,7 +1699,7 @@ const ResourceAllocation: React.FC = () => {
                 <div className="text-center py-4">
                   <LinearProgress className="mb-2" />
                   <p className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
-                    Đang tải lịch sử...
+                    Loading history...
                   </p>
                 </div>
               ) : roomSessions.length > 0 ? (
@@ -1730,13 +1730,13 @@ const ResourceAllocation: React.FC = () => {
                               <div className="flex items-center">
                                 <ScheduleIcon className={`w-4 h-4 mr-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`} />
                                 <span className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
-                                  {dateTime.date} từ {dateTime.time} đến {endDateTime.time}
+                                  {dateTime.date} from {dateTime.time} to {endDateTime.time}
                                 </span>
                               </div>
                               <div className="flex items-center">
                                 <PeopleIcon className={`w-4 h-4 mr-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`} />
                                 <span className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
-                                  {session.studentIds?.length || 0} học sinh
+                                  {session.studentIds?.length || 0} students
                                 </span>
                               </div>
                               {session.tutorId && (
@@ -1757,7 +1757,7 @@ const ResourceAllocation: React.FC = () => {
                               {session.equipmentRequirements && session.equipmentRequirements.length > 0 && (
                                 <div className="mt-2">
                                   <span className={`text-xs font-medium ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-                                    Thiết bị yêu cầu:
+                                    Required Equipment:
                                   </span>
                                   <div className="flex flex-wrap gap-1 mt-1">
                                     {session.equipmentRequirements.map((equip: string, idx: number) => (
@@ -1780,10 +1780,10 @@ const ResourceAllocation: React.FC = () => {
                           </div>
                           <div className="ml-4">
                             <Chip
-                              label={session.status === 'confirmed' ? 'Đã xác nhận' : 
-                                     session.status === 'pending' ? 'Chờ xác nhận' :
-                                     session.status === 'completed' ? 'Đã hoàn thành' :
-                                     session.status === 'cancelled' ? 'Đã hủy' :
+                              label={session.status === 'confirmed' ? 'Confirmed' : 
+                                     session.status === 'pending' ? 'Pending' :
+                                     session.status === 'completed' ? 'Completed' :
+                                     session.status === 'cancelled' ? 'Cancelled' :
                                      session.status}
                               size="small"
                               color={session.status === 'confirmed' ? 'success' : 
@@ -1802,10 +1802,10 @@ const ResourceAllocation: React.FC = () => {
                 <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-50'} text-center`}>
                   <Event className={`w-12 h-12 mx-auto mb-2 ${theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}`} />
                   <p className={`font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-                    Không có lịch sử sử dụng phòng
+                    No room usage history
                   </p>
                   <p className={`text-sm mt-1 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-                    Trong khoảng thời gian từ {formatDateTime(roomDateFilter.startDate + 'T00:00:00.000Z').date} đến {formatDateTime(roomDateFilter.endDate + 'T23:59:59.999Z').date}
+                    In the period from {formatDateTime(roomDateFilter.startDate + 'T00:00:00.000Z').date} to {formatDateTime(roomDateFilter.endDate + 'T23:59:59.999Z').date}
                   </p>
                 </div>
               )}
@@ -1817,7 +1817,7 @@ const ResourceAllocation: React.FC = () => {
             onClick={() => setIsRoomDetailDialogOpen(false)}
             sx={{ color: theme === 'dark' ? '#d1d5db' : '#374151' }}
           >
-            Đóng
+            Close
           </MuiButton>
         </DialogActions>
       </Dialog>
@@ -1836,21 +1836,21 @@ const ResourceAllocation: React.FC = () => {
         }}
       >
         <DialogTitle sx={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
-          Tạo Kế hoạch Tối ưu hóa
+          Create Optimization Plan
         </DialogTitle>
         <DialogContent>
           <div className="space-y-4 mt-4">
             {/* Focus Areas */}
             <div>
               <label className={`block text-sm font-medium mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-                Lĩnh vực tập trung
+                Focus Areas
               </label>
               <div className="space-y-2">
                 {[
                   { value: 'workload', label: 'Workload' },
-                  { value: 'group_balance', label: 'Cân bằng nhóm' },
-                  { value: 'resource_conflicts', label: 'Xung đột tài nguyên' },
-                  { value: 'utilization', label: 'Sử dụng tài nguyên' }
+                  { value: 'group_balance', label: 'Group Balance' },
+                  { value: 'resource_conflicts', label: 'Resource Conflicts' },
+                  { value: 'utilization', label: 'Resource Utilization' }
                 ].map((area) => (
                   <FormControlLabel
                     key={area.value}
@@ -1941,7 +1941,7 @@ const ResourceAllocation: React.FC = () => {
             onClick={() => setIsOptimizeDialogOpen(false)}
             sx={{ color: theme === 'dark' ? '#d1d5db' : '#374151' }}
           >
-            Hủy
+            Cancel
           </MuiButton>
           <MuiButton
             onClick={generateOptimizationPlan}
@@ -1954,7 +1954,7 @@ const ResourceAllocation: React.FC = () => {
               }
             }}
           >
-            {optimizationLoading ? 'Đang tạo...' : 'Tạo Kế hoạch'}
+            {optimizationLoading ? 'Creating...' : 'Create Plan'}
           </MuiButton>
         </DialogActions>
       </Dialog>
@@ -1973,7 +1973,7 @@ const ResourceAllocation: React.FC = () => {
         }}
       >
         <DialogTitle sx={{ color: theme === 'dark' ? '#ffffff' : '#111827' }}>
-          Áp dụng Tối ưu hóa
+          Apply Optimization
         </DialogTitle>
         <DialogContent>
           <div className="space-y-4 mt-4">
@@ -1984,16 +1984,16 @@ const ResourceAllocation: React.FC = () => {
                 color: theme === 'dark' ? '#ffffff' : '#1e40af'
               }}
             >
-              Kế hoạch tối ưu hóa sẽ được gửi dưới dạng yêu cầu phê duyệt. Vui lòng chờ phê duyệt từ management trước khi áp dụng.
+              The optimization plan will be sent as an approval request. Please wait for management approval before applying.
             </Alert>
             <TextField
               fullWidth
               multiline
               rows={4}
-              label="Mô tả (tùy chọn)"
+              label="Description (optional)"
               value={optimizationDescription}
               onChange={(e) => setOptimizationDescription(e.target.value)}
-              placeholder="Nhập mô tả cho yêu cầu phê duyệt..."
+              placeholder="Enter description for approval request..."
               sx={{
                 '& .MuiOutlinedInput-root': {
                   color: theme === 'dark' ? '#ffffff' : '#111827',
@@ -2009,10 +2009,10 @@ const ResourceAllocation: React.FC = () => {
             />
             <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'}`}>
               <p className={`text-sm font-medium mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                Số thay đổi đã chọn: {selectedChanges.size}
+                Selected Changes: {selectedChanges.size}
               </p>
               <p className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-                Tổng số thay đổi: {optimizationPlan?.changes?.length || 0}
+                Total Changes: {optimizationPlan?.changes?.length || 0}
               </p>
             </div>
           </div>
@@ -2022,7 +2022,7 @@ const ResourceAllocation: React.FC = () => {
             onClick={() => setIsApplyDialogOpen(false)}
             sx={{ color: theme === 'dark' ? '#d1d5db' : '#374151' }}
           >
-            Hủy
+            Cancel
           </MuiButton>
           <MuiButton
             onClick={applyOptimization}
@@ -2035,7 +2035,7 @@ const ResourceAllocation: React.FC = () => {
               }
             }}
           >
-            {applyLoading ? 'Đang gửi...' : 'Gửi Yêu cầu Phê duyệt'}
+            {applyLoading ? 'Sending...' : 'Send Approval Request'}
           </MuiButton>
         </DialogActions>
       </Dialog>

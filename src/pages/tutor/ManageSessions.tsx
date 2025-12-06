@@ -200,7 +200,7 @@ const ManageSessions: React.FC = () => {
     
     // Validate equipment selection for offline sessions
     if (!actionSession.isOnline && selectedEquipment.length === 0) {
-      alert('Vui lòng chọn ít nhất một thiết bị cần thiết cho buổi học offline')
+      alert('Please select at least one required equipment for the offline session')
       return
     }
     
@@ -598,18 +598,18 @@ const ManageSessions: React.FC = () => {
 
               if (!hasConflict && slotStart >= new Date()) {
                 // Format for display
-                const displayDate = slotStart.toLocaleDateString('vi-VN', {
+                const displayDate = slotStart.toLocaleDateString('en-US', {
                   weekday: 'long',
                   day: 'numeric',
                   month: 'long'
                 })
                 
-                const startTimeStr = slotStart.toLocaleTimeString('vi-VN', {
+                const startTimeStr = slotStart.toLocaleTimeString('en-US', {
                   hour: '2-digit',
                   minute: '2-digit',
                   hour12: false
                 })
-                const endTimeStr = slotEnd.toLocaleTimeString('vi-VN', {
+                const endTimeStr = slotEnd.toLocaleTimeString('en-US', {
                   hour: '2-digit',
                   minute: '2-digit',
                   hour12: false
@@ -699,12 +699,12 @@ const ManageSessions: React.FC = () => {
 
     // Validate
     if (!rescheduleDescription.trim() || rescheduleDescription.length < 10) {
-      setRescheduleError('Vui lòng nhập mô tả (ít nhất 10 ký tự)')
+      setRescheduleError('Please enter a description (at least 10 characters)')
       return
     }
 
     if (!newDuration || parseInt(newDuration) <= 0) {
-      setRescheduleError('Vui lòng nhập thời lượng hợp lệ (tính bằng phút)')
+      setRescheduleError('Please enter a valid duration (in minutes)')
       return
     }
 
@@ -722,7 +722,7 @@ const ManageSessions: React.FC = () => {
       newStartTimeDate = new Date(newStartDate)
       newStartTimeDate.setHours(hours, minutes, 0, 0)
     } else {
-      setRescheduleError('Vui lòng chọn ngày và giờ mới cho buổi học')
+      setRescheduleError('Please select a new date and time for the session')
       return
     }
 
@@ -739,7 +739,7 @@ const ManageSessions: React.FC = () => {
     const oneMinuteFromNow = new Date(now.getTime() + 60000)
     
     if (newStartTimeDate < oneMinuteFromNow) {
-      setRescheduleError('Thời gian mới phải ở tương lai (ít nhất 1 phút từ bây giờ)')
+      setRescheduleError('The new time must be in the future (at least 1 minute from now)')
       return
     }
 
@@ -780,11 +780,11 @@ const ManageSessions: React.FC = () => {
           setRescheduleError('')
         }, 2000)
       } else {
-        setRescheduleError(response.error || 'Có lỗi xảy ra khi tạo yêu cầu')
+        setRescheduleError(response.error || 'An error occurred while creating the request')
       }
     } catch (error: any) {
       console.error('Error submitting reschedule request:', error)
-      setRescheduleError(error.message || 'Có lỗi xảy ra khi tạo yêu cầu')
+      setRescheduleError(error.message || 'An error occurred while creating the request')
     } finally {
       setRescheduleLoading(false)
     }
@@ -1587,7 +1587,7 @@ const ManageSessions: React.FC = () => {
           <div className="space-y-4 mt-4">
             <div className="mb-4 p-3 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700">
               <p className="text-sm text-blue-800 dark:text-blue-300">
-                <strong>Lưu ý:</strong> Để thay đổi thời gian hoặc thời lượng của buổi học, vui lòng sử dụng chức năng "Schedule" (Reschedule) để tránh xung đột lịch.
+                <strong>Note:</strong> To change the time or duration of the session, please use the "Schedule" (Reschedule) function to avoid schedule conflicts.
               </p>
               </div>
             
@@ -2418,7 +2418,7 @@ const ManageSessions: React.FC = () => {
                     mb: 1
                   }}
                 >
-                  Buổi học hiện tại
+                  Current Session
                 </Typography>
                 <Typography
                   variant="body1"
@@ -2436,7 +2436,7 @@ const ManageSessions: React.FC = () => {
                     color: theme === 'dark' ? '#d1d5db' : '#374151'
                   }}
                 >
-                  {new Date(rescheduleSession.startTime).toLocaleString('vi-VN', {
+                  {new Date(rescheduleSession.startTime).toLocaleString('en-US', {
                     weekday: 'long',
                     year: 'numeric',
                     month: 'long',
@@ -2474,7 +2474,7 @@ const ManageSessions: React.FC = () => {
                       fontWeight: 600
                     }}
                   >
-                    Chọn thời gian trống của bạn (hoặc nhập thủ công bên dưới)
+                    Select your available time slots (or enter manually below)
                   </Typography>
                   
                   {/* Step 1: Select Date */}
@@ -2495,7 +2495,7 @@ const ManageSessions: React.FC = () => {
                             fontWeight: 600
                           }}
                         >
-                          Bước 1: Chọn ngày
+                          Step 1: Select Date
                         </Typography>
                       </Box>
                       
@@ -2523,11 +2523,11 @@ const ManageSessions: React.FC = () => {
                                 textAlign: 'center'
                               }}
                             >
-                              {getWeekDates(calendarWeekStart)[0] && new Date(getWeekDates(calendarWeekStart)[0]).toLocaleDateString('vi-VN', {
+                              {getWeekDates(calendarWeekStart)[0] && new Date(getWeekDates(calendarWeekStart)[0]).toLocaleDateString('en-US', {
                                 day: 'numeric',
                                 month: 'long',
                                 year: 'numeric'
-                              })} - {getWeekDates(calendarWeekStart)[6] && new Date(getWeekDates(calendarWeekStart)[6]).toLocaleDateString('vi-VN', {
+                              })} - {getWeekDates(calendarWeekStart)[6] && new Date(getWeekDates(calendarWeekStart)[6]).toLocaleDateString('en-US', {
                                 day: 'numeric',
                                 month: 'long',
                                 year: 'numeric'
@@ -2544,7 +2544,7 @@ const ManageSessions: React.FC = () => {
                                 color: theme === 'dark' ? '#9ca3af' : '#6b7280'
                               }}
                             >
-                              Hôm nay
+                              Today
                             </MuiButton>
                           </Box>
                           <MuiButton
@@ -2576,7 +2576,7 @@ const ManageSessions: React.FC = () => {
                               if (dateSlots.length === 0) return null
                               const times = dateSlots.map(s => {
                                 const slotDate = new Date(s.startTime)
-                                return slotDate.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit', hour12: false })
+                                return slotDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })
                               }).sort()
                               return { earliest: times[0], latest: times[times.length - 1] }
                             }
@@ -2684,7 +2684,7 @@ const ManageSessions: React.FC = () => {
                                         </Box>
                                         {isToday && (
                                           <Chip
-                                            label="Hôm nay"
+                                            label="Today"
                                             size="small"
                                             sx={{
                                               mt: 0.5,
@@ -2728,7 +2728,7 @@ const ManageSessions: React.FC = () => {
                                               textAlign: 'center'
                                             }}
                                           >
-                                            khung giờ có sẵn
+                                            available slots
                                           </Typography>
                                           {timeRange && (
                                             <Box 
@@ -2750,7 +2750,7 @@ const ManageSessions: React.FC = () => {
                                                 }}
                                               >
                                                 {timeRange.earliest === timeRange.latest 
-                                                  ? `Lúc ${timeRange.earliest}`
+                                                  ? `At ${timeRange.earliest}`
                                                   : `${timeRange.earliest} - ${timeRange.latest}`
                                                 }
                                               </Typography>
@@ -2767,7 +2767,7 @@ const ManageSessions: React.FC = () => {
                                               fontWeight: 500
                                             }}
                                           >
-                                            Không có
+                                            No
                                           </Typography>
                                           <Typography
                                             variant="caption"
@@ -2777,7 +2777,7 @@ const ManageSessions: React.FC = () => {
                                               textAlign: 'center'
                                             }}
                                           >
-                                            khung giờ trống
+                                            available slots
                                           </Typography>
                                         </Box>
                                       )}
@@ -2806,7 +2806,7 @@ const ManageSessions: React.FC = () => {
                             color: theme === 'dark' ? '#9ca3af' : '#6b7280'
                           }}
                         >
-                          ← Quay lại
+                          ← Back
                         </MuiButton>
                         <Typography
                           variant="body2"
@@ -2814,7 +2814,7 @@ const ManageSessions: React.FC = () => {
                             color: theme === 'dark' ? '#9ca3af' : '#6b7280'
                           }}
                         >
-                          Bước 2: Chọn giờ cho {new Date(selectedDateForSlot).toLocaleDateString('vi-VN', {
+                          Step 2: Select time for {new Date(selectedDateForSlot).toLocaleDateString('en-US', {
                             weekday: 'long',
                             day: 'numeric',
                             month: 'long'
@@ -2864,7 +2864,7 @@ const ManageSessions: React.FC = () => {
                 </Box>
               ) : (
                 <Alert severity="info">
-                  Không có thời gian trống trong 60 ngày tới. Vui lòng nhập thời gian mong muốn thủ công bên dưới.
+                  No available time slots in the next 60 days. Please enter your desired time manually below.
                 </Alert>
               )}
 
@@ -2878,13 +2878,13 @@ const ManageSessions: React.FC = () => {
                     fontWeight: 600
                   }}
                 >
-                  Hoặc nhập thời gian mong muốn thủ công
+                  Or enter your desired time manually
                 </Typography>
                 <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={enUS}>
                   <Grid container spacing={2}>
                     <Grid size={{ xs: 12, sm: 6 }}>
                       <DatePicker
-                        label="Ngày mong muốn"
+                        label="Preferred Date"
                         value={preferredDateValue}
                         onChange={(newValue) => {
                           setPreferredDateValue(newValue)
@@ -2948,7 +2948,7 @@ const ManageSessions: React.FC = () => {
                     </Grid>
                     <Grid size={{ xs: 12, sm: 6 }}>
                       <TimePicker
-                        label="Giờ mong muốn"
+                        label="Preferred Time"
                         value={preferredTimeValue}
                         onChange={(newValue) => {
                           setPreferredTimeValue(newValue)
@@ -3046,12 +3046,12 @@ const ManageSessions: React.FC = () => {
               {/* Description */}
               <TextField
                 fullWidth
-                label="Mô tả"
+                label="Description"
                 multiline
                 rows={4}
                 value={rescheduleDescription}
                 onChange={(e) => setRescheduleDescription(e.target.value)}
-                placeholder="Vui lòng giải thích lý do cần đổi lịch buổi học..."
+                placeholder="Please explain the reason for rescheduling the session..."
                 required
                 sx={{
                   '& .MuiOutlinedInput-root': {
@@ -3062,7 +3062,7 @@ const ManageSessions: React.FC = () => {
                     color: theme === 'dark' ? '#9ca3af' : '#6b7280'
                   }
                 }}
-                helperText={`Tối thiểu 10 ký tự (${rescheduleDescription.length}/10)`}
+                helperText={`Minimum 10 characters (${rescheduleDescription.length}/10)`}
               />
             </div>
           )}
@@ -3089,7 +3089,7 @@ const ManageSessions: React.FC = () => {
               color: theme === 'dark' ? '#9ca3af' : '#6b7280'
             }}
           >
-            Hủy
+            Cancel
           </MuiButton>
           <MuiButton
             onClick={handleSubmitRescheduleRequest}
@@ -3114,7 +3114,7 @@ const ManageSessions: React.FC = () => {
               }
             }}
           >
-            {rescheduleLoading ? 'Đang gửi...' : 'Gửi yêu cầu'}
+            {rescheduleLoading ? 'Sending...' : 'Submit Request'}
           </MuiButton>
         </DialogActions>
 
@@ -3233,7 +3233,7 @@ const ManageSessions: React.FC = () => {
                 flex: 1
               }}
             >
-              Yêu cầu đổi lịch đã được gửi thành công! Đang chờ management phê duyệt.
+              Reschedule request has been sent successfully! Waiting for management approval.
             </Typography>
           </Alert>
         </Snackbar>
