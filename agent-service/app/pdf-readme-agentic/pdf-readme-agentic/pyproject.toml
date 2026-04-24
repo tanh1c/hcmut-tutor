@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pdf-readme-agentic"
+version = "0.1.0"
+description = "Agentic PDF to hierarchical README generator built on MarkItDown."
+requires-python = ">=3.11"
+dependencies = [
+    "requests>=2.31",
+    "python-dotenv>=1.0",
+    "markitdown[pdf]",
+]
+
+[project.optional-dependencies]
+ocr = ["markitdown-ocr"]
+
+[project.scripts]
+pdf-readme-agentic = "pdf_readme_agentic.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

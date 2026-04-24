@@ -3,11 +3,13 @@ from pathlib import Path
 from .models import LearningProfile, ProfileSummary
 
 
-DATA_FILE = Path(__file__).resolve().parent.parent.parent / "data" / "agent-learning-profiles.json"
+DATA_FILE = Path(__file__).resolve().parent.parent.parent / "data" / "agent-student-contexts.json"
+FALLBACK_FILE = Path(__file__).resolve().parent.parent.parent / "data" / "agent-learning-profiles.json"
 
 
 def load_profiles() -> list[LearningProfile]:
-    raw = DATA_FILE.read_text(encoding="utf-8")
+    source = DATA_FILE if DATA_FILE.exists() else FALLBACK_FILE
+    raw = source.read_text(encoding="utf-8")
     return [LearningProfile.model_validate(item) for item in __import__("json").loads(raw)]
 
 

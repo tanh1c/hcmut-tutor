@@ -1,0 +1,1980 @@
+[
+  {
+    "id": "stu_afp9r8MLsjE8",
+    "studentName": "Đặng Nam Văn",
+    "major": "Mechanical Engineering",
+    "academicYear": 1,
+    "interests": [
+      "Xác suất thống kê",
+      "Tiếng Anh",
+      "Mạng máy tính",
+      "Hóa học",
+      "Lập trình Python",
+      "Hệ điều hành"
+    ],
+    "currentCourses": [
+      "Lập trình C/C++",
+      "Hệ điều hành",
+      "Xác suất thống kê",
+      "Tiếng Anh",
+      "Mạng máy tính"
+    ],
+    "challengeAreas": [
+      "Cần thêm thời gian luyện tập",
+      "Một số khái niệm còn khó"
+    ],
+    "weeklyGoalHours": 6,
+    "learningStyle": {
+      "preferredFormats": [
+        "practice",
+        "video",
+        "quiz"
+      ],
+      "pace": "steady",
+      "likesShortBursts": true
+    },
+    "loginHistory": [
+      {
+        "timestamp": "2025-11-11T14:12:04.362Z",
+        "durationMinutes": 52,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-14T21:00:00+07:00",
+        "durationMinutes": 38,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-15T19:25:00+07:00",
+        "durationMinutes": 47,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-16T20:15:00+07:00",
+        "durationMinutes": 61,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-17T18:50:00+07:00",
+        "durationMinutes": 44,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-18T20:40:00+07:00",
+        "durationMinutes": 70,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-19T19:35:00+07:00",
+        "durationMinutes": 49,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-20T20:05:00+07:00",
+        "durationMinutes": 57,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-21T21:10:00+07:00",
+        "durationMinutes": 35,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-22T19:45:00+07:00",
+        "durationMinutes": 55,
+        "device": "laptop"
+      }
+    ],
+    "recentTasks": [
+      {
+        "subject": "Lập trình C/C++",
+        "type": "practice",
+        "status": "completed"
+      }
+    ],
+    "derivedFrom": {
+      "userId": "stu_afp9r8MLsjE8",
+      "progressEntries": 1,
+      "hasProgressReport": true,
+      "templateSeed": "agent_stu_evening_01"
+    }
+  },
+  {
+    "id": "stu_FyRaYWIiysPh",
+    "studentName": "Trần Mai Anh",
+    "major": "Electrical Engineering",
+    "academicYear": 3,
+    "interests": [
+      "Hệ điều hành",
+      "Đại số tuyến tính",
+      "Xác suất thống kê",
+      "Cơ học kỹ thuật",
+      "Toán cao cấp"
+    ],
+    "currentCourses": [
+      "Cơ học kỹ thuật",
+      "Toán cao cấp",
+      "Hệ điều hành",
+      "Đại số tuyến tính",
+      "Xác suất thống kê"
+    ],
+    "challengeAreas": [
+      "quantitative analysis"
+    ],
+    "weeklyGoalHours": 8,
+    "learningStyle": {
+      "preferredFormats": [
+        "reading",
+        "video",
+        "quiz"
+      ],
+      "pace": "consistent",
+      "likesShortBursts": false
+    },
+    "loginHistory": [
+      {
+        "timestamp": "2026-04-14T06:40:00+07:00",
+        "durationMinutes": 35,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-15T07:15:00+07:00",
+        "durationMinutes": 42,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-16T06:55:00+07:00",
+        "durationMinutes": 46,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-17T07:10:00+07:00",
+        "durationMinutes": 31,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-18T06:50:00+07:00",
+        "durationMinutes": 39,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-19T08:05:00+07:00",
+        "durationMinutes": 54,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-20T07:00:00+07:00",
+        "durationMinutes": 48,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-21T06:45:00+07:00",
+        "durationMinutes": 37,
+        "device": "mobile"
+      }
+    ],
+    "recentTasks": [
+      {
+        "subject": "Cơ học kỹ thuật",
+        "type": "reading",
+        "status": "pending"
+      },
+      {
+        "subject": "Toán cao cấp",
+        "type": "video",
+        "status": "pending"
+      },
+      {
+        "subject": "Hệ điều hành",
+        "type": "quiz",
+        "status": "pending"
+      }
+    ],
+    "derivedFrom": {
+      "userId": "stu_FyRaYWIiysPh",
+      "progressEntries": 0,
+      "hasProgressReport": false,
+      "templateSeed": "agent_stu_morning_02"
+    }
+  },
+  {
+    "id": "stu_5m0qgd6BvqGz",
+    "studentName": "Phan Nam Tuấn",
+    "major": "Civil Engineering",
+    "academicYear": 2,
+    "interests": [
+      "Lập trình C/C++",
+      "Toán cao cấp",
+      "Vật lý đại cương"
+    ],
+    "currentCourses": [
+      "Xác suất thống kê",
+      "Toán cao cấp",
+      "Vật lý đại cương",
+      "Lập trình C/C++"
+    ],
+    "challengeAreas": [
+      "Cần thêm thời gian luyện tập",
+      "Một số khái niệm còn khó"
+    ],
+    "weeklyGoalHours": 6,
+    "learningStyle": {
+      "preferredFormats": [
+        "quiz",
+        "qa",
+        "practice"
+      ],
+      "pace": "sprint",
+      "likesShortBursts": true
+    },
+    "loginHistory": [
+      {
+        "timestamp": "2025-11-11T14:12:04.362Z",
+        "durationMinutes": 28,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-14T22:10:00+07:00",
+        "durationMinutes": 41,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-15T13:05:00+07:00",
+        "durationMinutes": 33,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-16T21:20:00+07:00",
+        "durationMinutes": 63,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-17T12:45:00+07:00",
+        "durationMinutes": 25,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-18T22:35:00+07:00",
+        "durationMinutes": 57,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-19T13:30:00+07:00",
+        "durationMinutes": 29,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-20T21:40:00+07:00",
+        "durationMinutes": 51,
+        "device": "laptop"
+      }
+    ],
+    "recentTasks": [
+      {
+        "subject": "Xác suất thống kê",
+        "type": "quiz",
+        "status": "completed"
+      }
+    ],
+    "derivedFrom": {
+      "userId": "stu_5m0qgd6BvqGz",
+      "progressEntries": 1,
+      "hasProgressReport": true,
+      "templateSeed": "agent_stu_mixed_03"
+    }
+  },
+  {
+    "id": "stu_3xXLt1IWBsCS",
+    "studentName": "Đặng Nam Lan",
+    "major": "Mechanical Engineering",
+    "academicYear": 2,
+    "interests": [
+      "Cơ sở dữ liệu",
+      "Tiếng Anh",
+      "Toán cao cấp"
+    ],
+    "currentCourses": [
+      "Mạng máy tính",
+      "Tiếng Anh",
+      "Cơ sở dữ liệu",
+      "Toán cao cấp"
+    ],
+    "challengeAreas": [
+      "proof writing",
+      "time management"
+    ],
+    "weeklyGoalHours": 6,
+    "learningStyle": {
+      "preferredFormats": [
+        "video",
+        "quiz",
+        "qa"
+      ],
+      "pace": "steady",
+      "likesShortBursts": true
+    },
+    "loginHistory": [
+      {
+        "timestamp": "2026-04-14T19:10:00+07:00",
+        "durationMinutes": 52,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-14T21:00:00+07:00",
+        "durationMinutes": 38,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-15T19:25:00+07:00",
+        "durationMinutes": 47,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-16T20:15:00+07:00",
+        "durationMinutes": 61,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-17T18:50:00+07:00",
+        "durationMinutes": 44,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-18T20:40:00+07:00",
+        "durationMinutes": 70,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-19T19:35:00+07:00",
+        "durationMinutes": 49,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-20T20:05:00+07:00",
+        "durationMinutes": 57,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-21T21:10:00+07:00",
+        "durationMinutes": 35,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-22T19:45:00+07:00",
+        "durationMinutes": 55,
+        "device": "laptop"
+      }
+    ],
+    "recentTasks": [
+      {
+        "subject": "Mạng máy tính",
+        "type": "quiz",
+        "status": "pending"
+      },
+      {
+        "subject": "Tiếng Anh",
+        "type": "video",
+        "status": "pending"
+      },
+      {
+        "subject": "Cơ sở dữ liệu",
+        "type": "qa",
+        "status": "pending"
+      }
+    ],
+    "derivedFrom": {
+      "userId": "stu_3xXLt1IWBsCS",
+      "progressEntries": 0,
+      "hasProgressReport": true,
+      "templateSeed": "agent_stu_evening_01"
+    }
+  },
+  {
+    "id": "stu_Z2bUHkAmmkQH",
+    "studentName": "Hoàng Khánh Hương",
+    "major": "Electrical Engineering",
+    "academicYear": 3,
+    "interests": [
+      "Vật lý đại cương",
+      "Cấu trúc dữ liệu",
+      "Lập trình Python",
+      "Giải tích",
+      "Hệ điều hành",
+      "Đại số tuyến tính"
+    ],
+    "currentCourses": [
+      "Đại số tuyến tính",
+      "Cơ sở dữ liệu",
+      "Toán cao cấp",
+      "Vật lý đại cương",
+      "Cấu trúc dữ liệu"
+    ],
+    "challengeAreas": [
+      "quantitative analysis"
+    ],
+    "weeklyGoalHours": 8,
+    "learningStyle": {
+      "preferredFormats": [
+        "reading",
+        "video",
+        "quiz"
+      ],
+      "pace": "consistent",
+      "likesShortBursts": false
+    },
+    "loginHistory": [
+      {
+        "timestamp": "2026-04-14T06:40:00+07:00",
+        "durationMinutes": 35,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-15T07:15:00+07:00",
+        "durationMinutes": 42,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-16T06:55:00+07:00",
+        "durationMinutes": 46,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-17T07:10:00+07:00",
+        "durationMinutes": 31,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-18T06:50:00+07:00",
+        "durationMinutes": 39,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-19T08:05:00+07:00",
+        "durationMinutes": 54,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-20T07:00:00+07:00",
+        "durationMinutes": 48,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-21T06:45:00+07:00",
+        "durationMinutes": 37,
+        "device": "mobile"
+      }
+    ],
+    "recentTasks": [
+      {
+        "subject": "Đại số tuyến tính",
+        "type": "reading",
+        "status": "pending"
+      },
+      {
+        "subject": "Cơ sở dữ liệu",
+        "type": "video",
+        "status": "pending"
+      },
+      {
+        "subject": "Toán cao cấp",
+        "type": "quiz",
+        "status": "pending"
+      }
+    ],
+    "derivedFrom": {
+      "userId": "stu_Z2bUHkAmmkQH",
+      "progressEntries": 0,
+      "hasProgressReport": false,
+      "templateSeed": "agent_stu_morning_02"
+    }
+  },
+  {
+    "id": "stu_dOHu6givateo",
+    "studentName": "Lê Khánh Tuấn",
+    "major": "Civil Engineering",
+    "academicYear": 3,
+    "interests": [
+      "Điện tử",
+      "Cấu trúc dữ liệu",
+      "Đại số tuyến tính",
+      "Toán cao cấp",
+      "Vật lý đại cương",
+      "Giải tích"
+    ],
+    "currentCourses": [
+      "Toán cao cấp",
+      "Tiếng Anh",
+      "Giải tích",
+      "Điện tử",
+      "Cấu trúc dữ liệu"
+    ],
+    "challengeAreas": [
+      "Cần thêm thời gian luyện tập",
+      "Một số khái niệm còn khó"
+    ],
+    "weeklyGoalHours": 6,
+    "learningStyle": {
+      "preferredFormats": [
+        "quiz",
+        "qa",
+        "practice"
+      ],
+      "pace": "sprint",
+      "likesShortBursts": true
+    },
+    "loginHistory": [
+      {
+        "timestamp": "2025-11-11T14:12:04.362Z",
+        "durationMinutes": 28,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-14T22:10:00+07:00",
+        "durationMinutes": 41,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-15T13:05:00+07:00",
+        "durationMinutes": 33,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-16T21:20:00+07:00",
+        "durationMinutes": 63,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-17T12:45:00+07:00",
+        "durationMinutes": 25,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-18T22:35:00+07:00",
+        "durationMinutes": 57,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-19T13:30:00+07:00",
+        "durationMinutes": 29,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-20T21:40:00+07:00",
+        "durationMinutes": 51,
+        "device": "laptop"
+      }
+    ],
+    "recentTasks": [
+      {
+        "subject": "Tiếng Anh",
+        "type": "quiz",
+        "status": "completed"
+      }
+    ],
+    "derivedFrom": {
+      "userId": "stu_dOHu6givateo",
+      "progressEntries": 1,
+      "hasProgressReport": true,
+      "templateSeed": "agent_stu_mixed_03"
+    }
+  },
+  {
+    "id": "stu_sP3IPBS2iler",
+    "studentName": "Hoàng Dũng Minh",
+    "major": "Mechanical Engineering",
+    "academicYear": 3,
+    "interests": [
+      "Toán cao cấp",
+      "Hóa học",
+      "Cơ học kỹ thuật",
+      "Mạng máy tính",
+      "Hệ điều hành",
+      "Đại số tuyến tính"
+    ],
+    "currentCourses": [
+      "Điện tử",
+      "Toán cao cấp",
+      "Xác suất thống kê",
+      "Hệ điều hành",
+      "Đại số tuyến tính"
+    ],
+    "challengeAreas": [
+      "proof writing",
+      "time management"
+    ],
+    "weeklyGoalHours": 6,
+    "learningStyle": {
+      "preferredFormats": [
+        "video",
+        "quiz",
+        "qa"
+      ],
+      "pace": "steady",
+      "likesShortBursts": true
+    },
+    "loginHistory": [
+      {
+        "timestamp": "2026-04-14T19:10:00+07:00",
+        "durationMinutes": 52,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-14T21:00:00+07:00",
+        "durationMinutes": 38,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-15T19:25:00+07:00",
+        "durationMinutes": 47,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-16T20:15:00+07:00",
+        "durationMinutes": 61,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-17T18:50:00+07:00",
+        "durationMinutes": 44,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-18T20:40:00+07:00",
+        "durationMinutes": 70,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-19T19:35:00+07:00",
+        "durationMinutes": 49,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-20T20:05:00+07:00",
+        "durationMinutes": 57,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-21T21:10:00+07:00",
+        "durationMinutes": 35,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-22T19:45:00+07:00",
+        "durationMinutes": 55,
+        "device": "laptop"
+      }
+    ],
+    "recentTasks": [
+      {
+        "subject": "Điện tử",
+        "type": "quiz",
+        "status": "pending"
+      },
+      {
+        "subject": "Toán cao cấp",
+        "type": "video",
+        "status": "pending"
+      },
+      {
+        "subject": "Xác suất thống kê",
+        "type": "qa",
+        "status": "pending"
+      }
+    ],
+    "derivedFrom": {
+      "userId": "stu_sP3IPBS2iler",
+      "progressEntries": 0,
+      "hasProgressReport": true,
+      "templateSeed": "agent_stu_evening_01"
+    }
+  },
+  {
+    "id": "stu_ZU0fknsTqL_A",
+    "studentName": "Lê Dũng Hữu",
+    "major": "Civil Engineering",
+    "academicYear": 4,
+    "interests": [
+      "Vật lý đại cương",
+      "Tiếng Anh",
+      "Xác suất thống kê",
+      "Hóa học",
+      "Cấu trúc dữ liệu"
+    ],
+    "currentCourses": [
+      "Hệ điều hành",
+      "Giải tích",
+      "Toán cao cấp",
+      "Cấu trúc dữ liệu",
+      "Vật lý đại cương"
+    ],
+    "challengeAreas": [
+      "quantitative analysis"
+    ],
+    "weeklyGoalHours": 7,
+    "learningStyle": {
+      "preferredFormats": [
+        "reading",
+        "video",
+        "quiz"
+      ],
+      "pace": "consistent",
+      "likesShortBursts": false
+    },
+    "loginHistory": [
+      {
+        "timestamp": "2026-04-14T06:40:00+07:00",
+        "durationMinutes": 35,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-15T07:15:00+07:00",
+        "durationMinutes": 42,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-16T06:55:00+07:00",
+        "durationMinutes": 46,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-17T07:10:00+07:00",
+        "durationMinutes": 31,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-18T06:50:00+07:00",
+        "durationMinutes": 39,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-19T08:05:00+07:00",
+        "durationMinutes": 54,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-20T07:00:00+07:00",
+        "durationMinutes": 48,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-21T06:45:00+07:00",
+        "durationMinutes": 37,
+        "device": "mobile"
+      }
+    ],
+    "recentTasks": [
+      {
+        "subject": "Hệ điều hành",
+        "type": "reading",
+        "status": "pending"
+      },
+      {
+        "subject": "Giải tích",
+        "type": "video",
+        "status": "pending"
+      },
+      {
+        "subject": "Toán cao cấp",
+        "type": "quiz",
+        "status": "pending"
+      }
+    ],
+    "derivedFrom": {
+      "userId": "stu_ZU0fknsTqL_A",
+      "progressEntries": 0,
+      "hasProgressReport": true,
+      "templateSeed": "agent_stu_morning_02"
+    }
+  },
+  {
+    "id": "stu_1FhaUWxySQ4V",
+    "studentName": "Đỗ Hà Thị",
+    "major": "Civil Engineering",
+    "academicYear": 2,
+    "interests": [
+      "Lập trình C/C++",
+      "Lập trình Python",
+      "Cấu trúc dữ liệu",
+      "Cơ sở dữ liệu"
+    ],
+    "currentCourses": [
+      "Cấu trúc dữ liệu",
+      "Hệ điều hành",
+      "Cơ sở dữ liệu",
+      "Lập trình C/C++",
+      "Lập trình Python"
+    ],
+    "challengeAreas": [
+      "Cần thêm thời gian luyện tập",
+      "Một số khái niệm còn khó"
+    ],
+    "weeklyGoalHours": 7,
+    "learningStyle": {
+      "preferredFormats": [
+        "qa",
+        "practice",
+        "video"
+      ],
+      "pace": "sprint",
+      "likesShortBursts": true
+    },
+    "loginHistory": [
+      {
+        "timestamp": "2025-11-11T14:12:04.362Z",
+        "durationMinutes": 28,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-14T22:10:00+07:00",
+        "durationMinutes": 41,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-15T13:05:00+07:00",
+        "durationMinutes": 33,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-16T21:20:00+07:00",
+        "durationMinutes": 63,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-17T12:45:00+07:00",
+        "durationMinutes": 25,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-18T22:35:00+07:00",
+        "durationMinutes": 57,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-19T13:30:00+07:00",
+        "durationMinutes": 29,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-20T21:40:00+07:00",
+        "durationMinutes": 51,
+        "device": "laptop"
+      }
+    ],
+    "recentTasks": [
+      {
+        "subject": "Cấu trúc dữ liệu",
+        "type": "qa",
+        "status": "completed"
+      }
+    ],
+    "derivedFrom": {
+      "userId": "stu_1FhaUWxySQ4V",
+      "progressEntries": 1,
+      "hasProgressReport": true,
+      "templateSeed": "agent_stu_mixed_03"
+    }
+  },
+  {
+    "id": "stu_SgsgvGIuTR0F",
+    "studentName": "Đỗ Mai Thị",
+    "major": "Computer Science",
+    "academicYear": 4,
+    "interests": [
+      "Lập trình Python",
+      "Đại số tuyến tính",
+      "Toán cao cấp",
+      "Cấu trúc dữ liệu",
+      "Giải tích",
+      "Lập trình C/C++"
+    ],
+    "currentCourses": [
+      "Cấu trúc dữ liệu",
+      "Vật lý đại cương",
+      "Giải tích",
+      "Lập trình C/C++",
+      "Cơ sở dữ liệu"
+    ],
+    "challengeAreas": [
+      "proof writing",
+      "time management"
+    ],
+    "weeklyGoalHours": 6,
+    "learningStyle": {
+      "preferredFormats": [
+        "video",
+        "quiz",
+        "qa"
+      ],
+      "pace": "steady",
+      "likesShortBursts": true
+    },
+    "loginHistory": [
+      {
+        "timestamp": "2026-04-14T19:10:00+07:00",
+        "durationMinutes": 52,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-14T21:00:00+07:00",
+        "durationMinutes": 38,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-15T19:25:00+07:00",
+        "durationMinutes": 47,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-16T20:15:00+07:00",
+        "durationMinutes": 61,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-17T18:50:00+07:00",
+        "durationMinutes": 44,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-18T20:40:00+07:00",
+        "durationMinutes": 70,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-19T19:35:00+07:00",
+        "durationMinutes": 49,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-20T20:05:00+07:00",
+        "durationMinutes": 57,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-21T21:10:00+07:00",
+        "durationMinutes": 35,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-22T19:45:00+07:00",
+        "durationMinutes": 55,
+        "device": "laptop"
+      }
+    ],
+    "recentTasks": [
+      {
+        "subject": "Cấu trúc dữ liệu",
+        "type": "quiz",
+        "status": "pending"
+      },
+      {
+        "subject": "Vật lý đại cương",
+        "type": "video",
+        "status": "pending"
+      },
+      {
+        "subject": "Giải tích",
+        "type": "qa",
+        "status": "pending"
+      }
+    ],
+    "derivedFrom": {
+      "userId": "stu_SgsgvGIuTR0F",
+      "progressEntries": 0,
+      "hasProgressReport": true,
+      "templateSeed": "agent_stu_evening_01"
+    }
+  },
+  {
+    "id": "stu_KkyoEg58egl5",
+    "studentName": "Nguyễn Linh Tuấn",
+    "major": "Electrical Engineering",
+    "academicYear": 1,
+    "interests": [
+      "Xác suất thống kê",
+      "Vật lý đại cương",
+      "Toán cao cấp",
+      "Điện tử",
+      "Giải tích",
+      "Lập trình C/C++"
+    ],
+    "currentCourses": [
+      "Hệ điều hành",
+      "Điện tử",
+      "Giải tích",
+      "Lập trình C/C++",
+      "Xác suất thống kê"
+    ],
+    "challengeAreas": [
+      "quantitative analysis"
+    ],
+    "weeklyGoalHours": 6,
+    "learningStyle": {
+      "preferredFormats": [
+        "reading",
+        "video",
+        "quiz"
+      ],
+      "pace": "consistent",
+      "likesShortBursts": false
+    },
+    "loginHistory": [
+      {
+        "timestamp": "2026-04-14T06:40:00+07:00",
+        "durationMinutes": 35,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-15T07:15:00+07:00",
+        "durationMinutes": 42,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-16T06:55:00+07:00",
+        "durationMinutes": 46,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-17T07:10:00+07:00",
+        "durationMinutes": 31,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-18T06:50:00+07:00",
+        "durationMinutes": 39,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-19T08:05:00+07:00",
+        "durationMinutes": 54,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-20T07:00:00+07:00",
+        "durationMinutes": 48,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-21T06:45:00+07:00",
+        "durationMinutes": 37,
+        "device": "mobile"
+      }
+    ],
+    "recentTasks": [
+      {
+        "subject": "Hệ điều hành",
+        "type": "reading",
+        "status": "pending"
+      },
+      {
+        "subject": "Điện tử",
+        "type": "video",
+        "status": "pending"
+      },
+      {
+        "subject": "Giải tích",
+        "type": "quiz",
+        "status": "pending"
+      }
+    ],
+    "derivedFrom": {
+      "userId": "stu_KkyoEg58egl5",
+      "progressEntries": 0,
+      "hasProgressReport": true,
+      "templateSeed": "agent_stu_morning_02"
+    }
+  },
+  {
+    "id": "stu_YiVGuLoCpVPF",
+    "studentName": "Bùi Cường Tuấn",
+    "major": "Electrical Engineering",
+    "academicYear": 1,
+    "interests": [
+      "Lập trình Python",
+      "Cơ học kỹ thuật",
+      "Đại số tuyến tính",
+      "Lập trình C/C++"
+    ],
+    "currentCourses": [
+      "Cấu trúc dữ liệu",
+      "Hệ điều hành",
+      "Lập trình C/C++",
+      "Lập trình Python",
+      "Cơ học kỹ thuật"
+    ],
+    "challengeAreas": [
+      "Cần thêm thời gian luyện tập",
+      "Một số khái niệm còn khó"
+    ],
+    "weeklyGoalHours": 6,
+    "learningStyle": {
+      "preferredFormats": [
+        "qa",
+        "practice",
+        "video"
+      ],
+      "pace": "sprint",
+      "likesShortBursts": true
+    },
+    "loginHistory": [
+      {
+        "timestamp": "2025-11-11T14:12:04.362Z",
+        "durationMinutes": 28,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2025-11-11T14:12:04.362Z",
+        "durationMinutes": 41,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-15T13:05:00+07:00",
+        "durationMinutes": 33,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-16T21:20:00+07:00",
+        "durationMinutes": 63,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-17T12:45:00+07:00",
+        "durationMinutes": 25,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-18T22:35:00+07:00",
+        "durationMinutes": 57,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-19T13:30:00+07:00",
+        "durationMinutes": 29,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-20T21:40:00+07:00",
+        "durationMinutes": 51,
+        "device": "laptop"
+      }
+    ],
+    "recentTasks": [
+      {
+        "subject": "Cấu trúc dữ liệu",
+        "type": "qa",
+        "status": "completed"
+      },
+      {
+        "subject": "Hệ điều hành",
+        "type": "qa",
+        "status": "completed"
+      }
+    ],
+    "derivedFrom": {
+      "userId": "stu_YiVGuLoCpVPF",
+      "progressEntries": 2,
+      "hasProgressReport": true,
+      "templateSeed": "agent_stu_mixed_03"
+    }
+  },
+  {
+    "id": "stu_KRDeTYJlBj41",
+    "studentName": "Lê An Tuấn",
+    "major": "Mechanical Engineering",
+    "academicYear": 4,
+    "interests": [
+      "Điện tử",
+      "Tiếng Anh",
+      "Toán cao cấp",
+      "Đại số tuyến tính",
+      "Xác suất thống kê",
+      "Mạng máy tính"
+    ],
+    "currentCourses": [
+      "Vật lý đại cương",
+      "Hệ điều hành",
+      "Mạng máy tính",
+      "Điện tử",
+      "Tiếng Anh"
+    ],
+    "challengeAreas": [
+      "Cần thêm thời gian luyện tập",
+      "Một số khái niệm còn khó"
+    ],
+    "weeklyGoalHours": 6,
+    "learningStyle": {
+      "preferredFormats": [
+        "video",
+        "quiz",
+        "qa"
+      ],
+      "pace": "steady",
+      "likesShortBursts": true
+    },
+    "loginHistory": [
+      {
+        "timestamp": "2025-11-11T14:12:04.362Z",
+        "durationMinutes": 52,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-14T21:00:00+07:00",
+        "durationMinutes": 38,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-15T19:25:00+07:00",
+        "durationMinutes": 47,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-16T20:15:00+07:00",
+        "durationMinutes": 61,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-17T18:50:00+07:00",
+        "durationMinutes": 44,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-18T20:40:00+07:00",
+        "durationMinutes": 70,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-19T19:35:00+07:00",
+        "durationMinutes": 49,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-20T20:05:00+07:00",
+        "durationMinutes": 57,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-21T21:10:00+07:00",
+        "durationMinutes": 35,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-22T19:45:00+07:00",
+        "durationMinutes": 55,
+        "device": "laptop"
+      }
+    ],
+    "recentTasks": [
+      {
+        "subject": "Hệ điều hành",
+        "type": "qa",
+        "status": "completed"
+      }
+    ],
+    "derivedFrom": {
+      "userId": "stu_KRDeTYJlBj41",
+      "progressEntries": 1,
+      "hasProgressReport": true,
+      "templateSeed": "agent_stu_evening_01"
+    }
+  },
+  {
+    "id": "stu_QYojhnP7sLsJ",
+    "studentName": "Nguyễn Bảo Phương",
+    "major": "Computer Science",
+    "academicYear": 2,
+    "interests": [
+      "Giải tích",
+      "Cơ sở dữ liệu",
+      "Đại số tuyến tính",
+      "Tiếng Anh",
+      "Toán cao cấp",
+      "Lập trình Python"
+    ],
+    "currentCourses": [
+      "Hệ điều hành",
+      "Mạng máy tính",
+      "Toán cao cấp",
+      "Cơ sở dữ liệu",
+      "Lập trình Python"
+    ],
+    "challengeAreas": [
+      "Cần thêm thời gian luyện tập",
+      "Một số khái niệm còn khó"
+    ],
+    "weeklyGoalHours": 7,
+    "learningStyle": {
+      "preferredFormats": [
+        "reading",
+        "video",
+        "quiz"
+      ],
+      "pace": "consistent",
+      "likesShortBursts": false
+    },
+    "loginHistory": [
+      {
+        "timestamp": "2026-04-14T06:40:00+07:00",
+        "durationMinutes": 35,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-15T07:15:00+07:00",
+        "durationMinutes": 42,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-16T06:55:00+07:00",
+        "durationMinutes": 46,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-17T07:10:00+07:00",
+        "durationMinutes": 31,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-18T06:50:00+07:00",
+        "durationMinutes": 39,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-19T08:05:00+07:00",
+        "durationMinutes": 54,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-20T07:00:00+07:00",
+        "durationMinutes": 48,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-21T06:45:00+07:00",
+        "durationMinutes": 37,
+        "device": "mobile"
+      }
+    ],
+    "recentTasks": [
+      {
+        "subject": "Hệ điều hành",
+        "type": "reading",
+        "status": "pending"
+      },
+      {
+        "subject": "Mạng máy tính",
+        "type": "video",
+        "status": "pending"
+      },
+      {
+        "subject": "Toán cao cấp",
+        "type": "quiz",
+        "status": "pending"
+      }
+    ],
+    "derivedFrom": {
+      "userId": "stu_QYojhnP7sLsJ",
+      "progressEntries": 0,
+      "hasProgressReport": true,
+      "templateSeed": "agent_stu_morning_02"
+    }
+  },
+  {
+    "id": "stu_ZfEvyF4Gu7bc",
+    "studentName": "Phạm Mai Phương",
+    "major": "Computer Science",
+    "academicYear": 2,
+    "interests": [
+      "Tiếng Anh",
+      "Xác suất thống kê",
+      "Điện tử",
+      "Cơ sở dữ liệu",
+      "Cơ học kỹ thuật",
+      "Toán cao cấp"
+    ],
+    "currentCourses": [
+      "Lập trình Python",
+      "Toán cao cấp",
+      "Đại số tuyến tính",
+      "Tiếng Anh",
+      "Xác suất thống kê"
+    ],
+    "challengeAreas": [
+      "keeping review rhythm",
+      "balancing lab deadlines"
+    ],
+    "weeklyGoalHours": 6,
+    "learningStyle": {
+      "preferredFormats": [
+        "qa",
+        "practice",
+        "video"
+      ],
+      "pace": "sprint",
+      "likesShortBursts": true
+    },
+    "loginHistory": [
+      {
+        "timestamp": "2026-04-14T12:15:00+07:00",
+        "durationMinutes": 28,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-14T22:10:00+07:00",
+        "durationMinutes": 41,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-15T13:05:00+07:00",
+        "durationMinutes": 33,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-16T21:20:00+07:00",
+        "durationMinutes": 63,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-17T12:45:00+07:00",
+        "durationMinutes": 25,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-18T22:35:00+07:00",
+        "durationMinutes": 57,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-19T13:30:00+07:00",
+        "durationMinutes": 29,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-20T21:40:00+07:00",
+        "durationMinutes": 51,
+        "device": "laptop"
+      }
+    ],
+    "recentTasks": [
+      {
+        "subject": "Lập trình Python",
+        "type": "qa",
+        "status": "pending"
+      },
+      {
+        "subject": "Toán cao cấp",
+        "type": "practice",
+        "status": "pending"
+      },
+      {
+        "subject": "Đại số tuyến tính",
+        "type": "video",
+        "status": "pending"
+      }
+    ],
+    "derivedFrom": {
+      "userId": "stu_ZfEvyF4Gu7bc",
+      "progressEntries": 0,
+      "hasProgressReport": true,
+      "templateSeed": "agent_stu_mixed_03"
+    }
+  },
+  {
+    "id": "stu_h8gj9_8-bjIL",
+    "studentName": "Bùi Dũng Phương",
+    "major": "Computer Science",
+    "academicYear": 2,
+    "interests": [
+      "Hệ điều hành",
+      "Lập trình Python",
+      "Lập trình C/C++",
+      "Cơ sở dữ liệu",
+      "Cơ học kỹ thuật"
+    ],
+    "currentCourses": [
+      "Giải tích",
+      "Cơ học kỹ thuật",
+      "Hệ điều hành",
+      "Lập trình Python",
+      "Lập trình C/C++"
+    ],
+    "challengeAreas": [
+      "proof writing",
+      "time management"
+    ],
+    "weeklyGoalHours": 6,
+    "learningStyle": {
+      "preferredFormats": [
+        "video",
+        "quiz",
+        "qa"
+      ],
+      "pace": "steady",
+      "likesShortBursts": true
+    },
+    "loginHistory": [
+      {
+        "timestamp": "2026-04-14T19:10:00+07:00",
+        "durationMinutes": 52,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-14T21:00:00+07:00",
+        "durationMinutes": 38,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-15T19:25:00+07:00",
+        "durationMinutes": 47,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-16T20:15:00+07:00",
+        "durationMinutes": 61,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-17T18:50:00+07:00",
+        "durationMinutes": 44,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-18T20:40:00+07:00",
+        "durationMinutes": 70,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-19T19:35:00+07:00",
+        "durationMinutes": 49,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-20T20:05:00+07:00",
+        "durationMinutes": 57,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-21T21:10:00+07:00",
+        "durationMinutes": 35,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-22T19:45:00+07:00",
+        "durationMinutes": 55,
+        "device": "laptop"
+      }
+    ],
+    "recentTasks": [
+      {
+        "subject": "Giải tích",
+        "type": "quiz",
+        "status": "pending"
+      },
+      {
+        "subject": "Cơ học kỹ thuật",
+        "type": "video",
+        "status": "pending"
+      },
+      {
+        "subject": "Hệ điều hành",
+        "type": "qa",
+        "status": "pending"
+      }
+    ],
+    "derivedFrom": {
+      "userId": "stu_h8gj9_8-bjIL",
+      "progressEntries": 0,
+      "hasProgressReport": true,
+      "templateSeed": "agent_stu_evening_01"
+    }
+  },
+  {
+    "id": "stu_FaawsvPS_Mp3",
+    "studentName": "Nguyễn Mai Thị",
+    "major": "Civil Engineering",
+    "academicYear": 1,
+    "interests": [
+      "Cơ sở dữ liệu",
+      "Lập trình C/C++",
+      "Lập trình Python"
+    ],
+    "currentCourses": [
+      "Vật lý đại cương",
+      "Lập trình Python",
+      "Cơ sở dữ liệu",
+      "Lập trình C/C++"
+    ],
+    "challengeAreas": [
+      "quantitative analysis"
+    ],
+    "weeklyGoalHours": 6,
+    "learningStyle": {
+      "preferredFormats": [
+        "reading",
+        "video",
+        "quiz"
+      ],
+      "pace": "consistent",
+      "likesShortBursts": false
+    },
+    "loginHistory": [
+      {
+        "timestamp": "2026-04-14T06:40:00+07:00",
+        "durationMinutes": 35,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-15T07:15:00+07:00",
+        "durationMinutes": 42,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-16T06:55:00+07:00",
+        "durationMinutes": 46,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-17T07:10:00+07:00",
+        "durationMinutes": 31,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-18T06:50:00+07:00",
+        "durationMinutes": 39,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-19T08:05:00+07:00",
+        "durationMinutes": 54,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-20T07:00:00+07:00",
+        "durationMinutes": 48,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-21T06:45:00+07:00",
+        "durationMinutes": 37,
+        "device": "mobile"
+      }
+    ],
+    "recentTasks": [
+      {
+        "subject": "Vật lý đại cương",
+        "type": "reading",
+        "status": "pending"
+      },
+      {
+        "subject": "Lập trình Python",
+        "type": "video",
+        "status": "pending"
+      },
+      {
+        "subject": "Cơ sở dữ liệu",
+        "type": "quiz",
+        "status": "pending"
+      }
+    ],
+    "derivedFrom": {
+      "userId": "stu_FaawsvPS_Mp3",
+      "progressEntries": 0,
+      "hasProgressReport": true,
+      "templateSeed": "agent_stu_morning_02"
+    }
+  },
+  {
+    "id": "stu_a7LVENf1yYZ5",
+    "studentName": "Nguyễn Khánh Hương",
+    "major": "Electrical Engineering",
+    "academicYear": 2,
+    "interests": [
+      "Hóa học",
+      "Toán cao cấp",
+      "Cấu trúc dữ liệu",
+      "Đại số tuyến tính",
+      "Lập trình Python",
+      "Lập trình C/C++"
+    ],
+    "currentCourses": [
+      "Cấu trúc dữ liệu",
+      "Toán cao cấp",
+      "Lập trình C/C++",
+      "Hóa học",
+      "Đại số tuyến tính"
+    ],
+    "challengeAreas": [
+      "keeping review rhythm",
+      "balancing lab deadlines"
+    ],
+    "weeklyGoalHours": 6,
+    "learningStyle": {
+      "preferredFormats": [
+        "qa",
+        "practice",
+        "video"
+      ],
+      "pace": "sprint",
+      "likesShortBursts": true
+    },
+    "loginHistory": [
+      {
+        "timestamp": "2026-04-14T12:15:00+07:00",
+        "durationMinutes": 28,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-14T22:10:00+07:00",
+        "durationMinutes": 41,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-15T13:05:00+07:00",
+        "durationMinutes": 33,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-16T21:20:00+07:00",
+        "durationMinutes": 63,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-17T12:45:00+07:00",
+        "durationMinutes": 25,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-18T22:35:00+07:00",
+        "durationMinutes": 57,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-19T13:30:00+07:00",
+        "durationMinutes": 29,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-20T21:40:00+07:00",
+        "durationMinutes": 51,
+        "device": "laptop"
+      }
+    ],
+    "recentTasks": [
+      {
+        "subject": "Cấu trúc dữ liệu",
+        "type": "qa",
+        "status": "pending"
+      },
+      {
+        "subject": "Toán cao cấp",
+        "type": "practice",
+        "status": "pending"
+      },
+      {
+        "subject": "Lập trình C/C++",
+        "type": "video",
+        "status": "pending"
+      }
+    ],
+    "derivedFrom": {
+      "userId": "stu_a7LVENf1yYZ5",
+      "progressEntries": 0,
+      "hasProgressReport": true,
+      "templateSeed": "agent_stu_mixed_03"
+    }
+  },
+  {
+    "id": "stu_JPwzdql5rJG0",
+    "studentName": "Phạm Mai Minh",
+    "major": "Computer Science",
+    "academicYear": 2,
+    "interests": [
+      "Tiếng Anh",
+      "Đại số tuyến tính",
+      "Giải tích"
+    ],
+    "currentCourses": [
+      "Vật lý đại cương",
+      "Tiếng Anh",
+      "Giải tích",
+      "Đại số tuyến tính"
+    ],
+    "challengeAreas": [
+      "proof writing",
+      "time management"
+    ],
+    "weeklyGoalHours": 6,
+    "learningStyle": {
+      "preferredFormats": [
+        "video",
+        "quiz",
+        "qa"
+      ],
+      "pace": "steady",
+      "likesShortBursts": true
+    },
+    "loginHistory": [
+      {
+        "timestamp": "2026-04-14T19:10:00+07:00",
+        "durationMinutes": 52,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-14T21:00:00+07:00",
+        "durationMinutes": 38,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-15T19:25:00+07:00",
+        "durationMinutes": 47,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-16T20:15:00+07:00",
+        "durationMinutes": 61,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-17T18:50:00+07:00",
+        "durationMinutes": 44,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-18T20:40:00+07:00",
+        "durationMinutes": 70,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-19T19:35:00+07:00",
+        "durationMinutes": 49,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-20T20:05:00+07:00",
+        "durationMinutes": 57,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-21T21:10:00+07:00",
+        "durationMinutes": 35,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-22T19:45:00+07:00",
+        "durationMinutes": 55,
+        "device": "laptop"
+      }
+    ],
+    "recentTasks": [
+      {
+        "subject": "Vật lý đại cương",
+        "type": "quiz",
+        "status": "pending"
+      },
+      {
+        "subject": "Tiếng Anh",
+        "type": "video",
+        "status": "pending"
+      },
+      {
+        "subject": "Giải tích",
+        "type": "qa",
+        "status": "pending"
+      }
+    ],
+    "derivedFrom": {
+      "userId": "stu_JPwzdql5rJG0",
+      "progressEntries": 0,
+      "hasProgressReport": true,
+      "templateSeed": "agent_stu_evening_01"
+    }
+  },
+  {
+    "id": "stu_aBXlnK4-0JBf",
+    "studentName": "Trần Bảo Văn",
+    "major": "Computer Science",
+    "academicYear": 2,
+    "interests": [
+      "Điện tử",
+      "Hệ điều hành",
+      "Cơ sở dữ liệu",
+      "Hóa học",
+      "Cơ học kỹ thuật",
+      "Vật lý đại cương"
+    ],
+    "currentCourses": [
+      "Xác suất thống kê",
+      "Cấu trúc dữ liệu",
+      "Hệ điều hành",
+      "Vật lý đại cương",
+      "Đại số tuyến tính"
+    ],
+    "challengeAreas": [
+      "Cần thêm thời gian luyện tập",
+      "Một số khái niệm còn khó",
+      "ChatGPT qúa nhiều"
+    ],
+    "weeklyGoalHours": 9,
+    "learningStyle": {
+      "preferredFormats": [
+        "qa",
+        "reading",
+        "video"
+      ],
+      "pace": "consistent",
+      "likesShortBursts": false
+    },
+    "loginHistory": [
+      {
+        "timestamp": "2025-11-06T07:51:29.186Z",
+        "durationMinutes": 35,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-15T07:15:00+07:00",
+        "durationMinutes": 42,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-16T06:55:00+07:00",
+        "durationMinutes": 46,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-17T07:10:00+07:00",
+        "durationMinutes": 31,
+        "device": "mobile"
+      },
+      {
+        "timestamp": "2026-04-18T06:50:00+07:00",
+        "durationMinutes": 39,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-19T08:05:00+07:00",
+        "durationMinutes": 54,
+        "device": "tablet"
+      },
+      {
+        "timestamp": "2026-04-20T07:00:00+07:00",
+        "durationMinutes": 48,
+        "device": "laptop"
+      },
+      {
+        "timestamp": "2026-04-21T06:45:00+07:00",
+        "durationMinutes": 37,
+        "device": "mobile"
+      }
+    ],
+    "recentTasks": [
+      {
+        "subject": "Hệ điều hành",
+        "type": "qa",
+        "status": "completed"
+      }
+    ],
+    "derivedFrom": {
+      "userId": "stu_aBXlnK4-0JBf",
+      "progressEntries": 1,
+      "hasProgressReport": true,
+      "templateSeed": "agent_stu_morning_02"
+    }
+  }
+]

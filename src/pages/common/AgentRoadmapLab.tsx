@@ -77,15 +77,47 @@ const toolMeta = {
   }
 };
 
+const AGENT_LAB_CACHE_KEY = 'agent-roadmap-lab-cache';
+
 const AgentRoadmapLab: React.FC = () => {
   const [profiles, setProfiles] = useState<AgentProfileSummary[]>([]);
   const [selectedProfileId, setSelectedProfileId] = useState('');
   const [prompt, setPrompt] = useState(
-    'Sinh vien dang hoc vao buoi toi va muon roadmap ket hop video, quiz, va hoi dap cho mon kho.'
+    'The student wants a personalized study roadmap that combines videos, quizzes, and guided Q&A for difficult subjects.'
   );
   const [result, setResult] = useState<RoadmapResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    try {
+      const cached = localStorage.getItem(AGENT_LAB_CACHE_KEY);
+
+      if (!cached) {
+        return;
+      }
+
+      const parsed = JSON.parse(cached) as {
+        selectedProfileId?: string;
+        prompt?: string;
+        result?: RoadmapResponse | null;
+      };
+
+      if (parsed.selectedProfileId) {
+        setSelectedProfileId(parsed.selectedProfileId);
+      }
+
+      if (parsed.prompt) {
+        setPrompt(parsed.prompt);
+      }
+
+      if (parsed.result) {
+        setResult(parsed.result);
+      }
+    } catch (storageError) {
+      console.warn('Failed to restore cached roadmap lab state:', storageError);
+    }
+  }, []);
 
   useEffect(() => {
     const loadProfiles = async () => {
@@ -104,6 +136,21 @@ const AgentRoadmapLab: React.FC = () => {
       setError(fetchError.message);
     });
   }, []);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(
+        AGENT_LAB_CACHE_KEY,
+        JSON.stringify({
+          selectedProfileId,
+          prompt,
+          result
+        })
+      );
+    } catch (storageError) {
+      console.warn('Failed to persist roadmap lab state:', storageError);
+    }
+  }, [selectedProfileId, prompt, result]);
 
   const selectedProfile = useMemo(
     () => profiles.find((profile) => profile.id === selectedProfileId) || null,
@@ -150,10 +197,10 @@ const AgentRoadmapLab: React.FC = () => {
                 AI Agent roadmap lab
               </p>
               <h1 className="text-4xl font-semibold leading-tight">
-                Demo service goi y lo trinh hoc tap dua tren thoi quen dang nhap
+                Demo service for personalized study roadmaps based on login habits
               </h1>
               <p className="text-sm text-blue-100">
-                Ban nay dung mock data, co tool selection, co roadmap theo khung gio hoc manh nhat, va san sang de noi vao LMS sau.
+                This page uses mock data, includes tool selection, generates a roadmap around each student's strongest study window, and is ready to connect to the LMS later.
               </p>
             </div>
             <Button
@@ -166,7 +213,7 @@ const AgentRoadmapLab: React.FC = () => {
                 fontWeight: 700
               }}
             >
-              {loading ? 'Dang sinh roadmap...' : 'Generate roadmap'}
+              {loading ? 'Generating roadmap...' : 'Generate roadmap'}
             </Button>
           </div>
         </div>
@@ -180,7 +227,7 @@ const AgentRoadmapLab: React.FC = () => {
               <div>
                 <h2 className="text-xl font-semibold">Mock student</h2>
                 <p className="mt-1 text-sm text-slate-500">
-                  Chon profile de test phan tich login pattern va roadmap.
+                  Pick a profile to test login-pattern analysis and roadmap generation.
                 </p>
               </div>
 
@@ -288,11 +335,11 @@ const AgentRoadmapLab: React.FC = () => {
                   className="rounded-[24px] border-0 bg-white"
                   style={{ borderColor: '#e2e8f0', boxShadow: '0 24px 50px rgba(15, 23, 42, 0.08)' }}
                 >
-                  <div className="space-y-4">
+                    <div className="space-y-4">
                     <div>
                       <h2 className="text-xl font-semibold">Tool selection</h2>
                       <p className="mt-1 text-sm text-slate-500">
-                        Agent chon tool phu hop voi thoi quen dang nhap va cach hoc cua sinh vien.
+                        The agent chooses tools that match each student's login habits and learning style.
                       </p>
                     </div>
                     <div className="grid gap-4 lg:grid-cols-3">
@@ -325,7 +372,7 @@ const AgentRoadmapLab: React.FC = () => {
                     <div>
                       <h2 className="text-xl font-semibold">Roadmap preview</h2>
                       <p className="mt-1 text-sm text-slate-500">
-                        Vi du: neu sinh vien thuong hoc buoi toi, roadmap se day block chinh vao 19:00-21:00.
+                        Example: if a student usually studies in the evening, the main roadmap blocks will be placed around 19:00-21:00.
                       </p>
                     </div>
                     <div className="grid gap-4">
@@ -388,9 +435,9 @@ const AgentRoadmapLab: React.FC = () => {
                   <div className="rounded-full bg-blue-100 p-4 text-blue-700">
                     <AutoAwesome fontSize="large" />
                   </div>
-                  <h2 className="mt-6 text-2xl font-semibold">Roadmap se hien o day</h2>
+                  <h2 className="mt-6 text-2xl font-semibold">The roadmap will appear here</h2>
                   <p className="mt-3 max-w-xl text-sm text-slate-500">
-                    Chon mock profile va bam Generate roadmap de xem agent phan tich login history, chon tool, va xep lich hoc theo khung gio phu hop.
+                    Choose a mock profile and click Generate roadmap to see the agent analyze login history, select tools, and arrange a study plan in the most suitable time window.
                   </p>
                 </div>
               </Card>

@@ -75,7 +75,16 @@ import { getMessagesHandler, sendMessageHandler } from './routes/conversations/[
 
 // Import handlers - Chatbot
 import { chatbotHandler, getHistoryHandler } from './routes/chatbot/index.js';
-import { generateAgentRoadmapHandler, listAgentProfilesHandler } from './routes/agent-lab/index.js';
+import {
+  createAgentChatSessionHandler,
+  generateAgentRoadmapHandler,
+  getAgentChatSessionHandler,
+  listAgentChatSessionsHandler,
+  listAgentProfilesHandler,
+  sendAgentChatMessageHandler,
+  streamAgentChatMessageHandler,
+  uploadAgentChatDocumentsHandler
+} from './routes/agent-lab/index.js';
 
 // Import handlers - Session Requests
 import { listSessionRequestsHandler, createSessionRequestHandler } from './routes/session-requests/index.js';
@@ -258,6 +267,12 @@ app.get('/api/chatbot/history', authenticate, getHistoryHandler);
 
 app.get('/api/agent-lab/profiles', listAgentProfilesHandler);
 app.post('/api/agent-lab/roadmap', generateAgentRoadmapHandler);
+app.get('/api/agent-lab/chat/sessions', listAgentChatSessionsHandler);
+app.post('/api/agent-lab/chat/sessions', createAgentChatSessionHandler);
+app.get('/api/agent-lab/chat/sessions/:sessionId', getAgentChatSessionHandler);
+app.post('/api/agent-lab/chat/sessions/:sessionId/documents', uploadAgentChatDocumentsHandler);
+app.post('/api/agent-lab/chat/sessions/:sessionId/messages', sendAgentChatMessageHandler);
+app.post('/api/agent-lab/chat/sessions/:sessionId/messages/stream', streamAgentChatMessageHandler);
 
 // ===== PROGRESS ROUTES =====
 

@@ -1,6 +1,7 @@
 import json
 import os
 from datetime import datetime
+import logging
 
 from dotenv import load_dotenv
 
@@ -8,14 +9,34 @@ from .mock_data import get_profile
 from .models import HabitAnalysis, RecommendedWindow, RoadmapRequest, RoadmapResult, ToolInvocation, ToolOutput
 
 load_dotenv()
+logger = logging.getLogger("agent.roadmap")
 
 try:
-    import google.generativeai as genai
+    from google import genai
 except ImportError:  # pragma: no cover
     genai = None
 
 
 WEEK_ORDER = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+_genai_client = None
+
+
+def get_genai_client():
+    global _genai_client
+    api_key = os.getenv("GEMINI_API_KEY")
+
+    if not genai:
+        logger.warning("Gemini fallback: google.genai is not installed or failed to import.")
+        return None
+
+    if not api_key:
+        logger.warning("Gemini fallback: GEMINI_API_KEY is missing.")
+        return None
+
+    if _genai_client is None:
+        _genai_client = genai.Client(api_key=api_key)
+
+    return _genai_client
 
 
 def get_bucket(dt: datetime) -> str:
@@ -182,14 +203,17 @@ def _safe_json(input_text: str) -> dict | None:
 
 
 def plan_with_gemini(profile, analysis: HabitAnalysis, prompt: str | None) -> dict | None:
-    if not genai or not os.getenv("GEMINI_API_KEY"):
+    client = get_genai_client()
+
+    if client is None:
         return None
 
+    model_name = os.getenv("AGENT_GEMINI_MODEL", "gemini-2.5-flash")
+
     try:
-        genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-        model = genai.GenerativeModel(os.getenv("AGENT_GEMINI_MODEL", "gemini-2.5-flash"))
-        response = model.generate_content(
-            f"""
+        response = client.models.generate_content(
+            model=model_name,
+            contents=f"""
 Return strict JSON only:
 {{
   "coachingSummary": "string",
@@ -207,21 +231,55 @@ Student:
 - Preferred study bucket: {label_bucket(analysis.preferred_bucket)}
 - Recommended window: {analysis.recommended_window.start}-{analysis.recommended_window.end}
 - Prompt: {prompt or "No extra prompt"}
-"""
+""",
         )
-        parsed = _safe_json(response.text)
+        response_text = response.text or ""
+
+        if not response_text.strip():
+            logger.warning(
+                "Gemini fallback: empty response text for student %s using model %s.",
+                profile.id,
+                model_name,
+            )
+            return None
+
+        parsed = _safe_json(response_text)
         if not parsed:
+            logger.warning(
+                "Gemini fallback: response was not valid JSON for student %s using model %s. Raw preview: %r",
+                profile.id,
+                model_name,
+                response_text[:300],
+            )
             return None
         tools = [tool for tool in parsed.get("toolSequence", []) if tool in {"video_recommender", "quiz_generator", "study_qa_coach"}]
         subjects = [subject for subject in parsed.get("focusSubjects", []) if subject]
         if not tools:
+            logger.warning(
+                "Gemini fallback: parsed response had no valid toolSequence for student %s. Parsed payload: %s",
+                profile.id,
+                parsed,
+            )
             return None
+        logger.info(
+            "Gemini planner success for student %s with model %s. Tools=%s Subjects=%s",
+            profile.id,
+            model_name,
+            tools,
+            subjects[:3],
+        )
         return {
             "coaching_summary": parsed.get("coachingSummary") or "Gemini planned a structured learning flow.",
             "tool_sequence": tools,
             "focus_subjects": subjects[:3],
         }
-    except Exception:
+    except Exception as error:
+        logger.exception(
+            "Gemini fallback: request failed for student %s using model %s. Error=%s",
+            profile.id,
+            model_name,
+            error,
+        )
         return None
 
 

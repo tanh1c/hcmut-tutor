@@ -30,6 +30,7 @@
     "stats": "tsx -e \"import('./lib/dataValidator').then(m => m.generateDataStats())\"",
     "agent:demo": "tsx scripts/agent-roadmap-demo.ts",
     "agent:python": "python agent-service/run.py",
+    "agent:data": "python agent-service/scripts/build_agent_student_contexts.py",
     "migrate:mongodb": "tsx scripts/migrate-to-mongodb.ts",
     "export:mongodb": "tsx scripts/export-mongodb-to-json.ts"
   },
