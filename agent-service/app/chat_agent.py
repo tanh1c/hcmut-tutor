@@ -180,11 +180,13 @@ def upload_session_documents(session_id: str, request: AgentDocumentUploadReques
 
     print(f"[DEBUG] Session now has {len(record['documents'])} documents after upload")
     record["updated_at"] = uploaded_at
+    doc_status = "ready" if any(d.text_content or d.content_base64 is None for d in request.documents) else "pending"
     record["messages"].append(
         AgentChatMessage(
             id=f"msg_{uuid4().hex[:12]}",
             role="system",
-            content=f"{len(request.documents)} document(s) attached. Text extraction is still pending implementation.",
+            content=f"{len(request.documents)} document(s) attached. " +
+                   ("Text content is ready." if doc_status == "ready" else "Text extraction will occur on first message."),
             createdAt=uploaded_at,
             meta={"kind": "document_upload"},
         )
@@ -218,6 +220,8 @@ def _available_document_text(documents: list[AgentDocument]) -> tuple[str, list[
         if document.raw_text:
             text = document.raw_text.strip()
             if text:
+                print(f"[DEBUG _available_document_text] Document '{document.name}' raw_text length: {len(text)} chars")
+                print(f"[DEBUG _available_document_text] First 500 chars: {text[:500]}")
                 chunks.append(f"[{document.name}]\n{text}")
                 citations.append(document.name)
         elif document.extracted_text_preview:
@@ -258,9 +262,13 @@ def _extract_requested_part(message: str) -> str | None:
     lowered = message.lower()
     patterns = [
         r"\bpart\s*([a-z])\b",
-        r"\bquestion\s*([a-z])\b",
+        r"\bquestion\s*([a-z0-9])\b",
         r"\bc[aâ]u\s*([a-z0-9])\b",
         r"\b([a-z])\)",
+        r"\bproblem\s*(\d+)\b",      # "problem 2"
+        r"\bexercise\s*(\d+)\b",     # "exercise 2"
+        r"\bquestion\s*(\d+)\b",     # "question 2"
+        r"\bq\s*(\d+)\b",            # "q2"
     ]
     for pattern in patterns:
         match = re.search(pattern, lowered)
@@ -270,16 +278,29 @@ def _extract_requested_part(message: str) -> str | None:
 
 
 def _extract_problem_parts(problem_text: str) -> list[tuple[str, str]]:
-    matches = list(re.finditer(r"(?im)^\s*([a-z])\)\s*(.+?)(?=^\s*[a-z]\)\s*|\Z)", problem_text, flags=re.S))
-    if not matches:
-        return [("main", problem_text.strip())] if problem_text.strip() else []
+    # Match patterns like: a) text, b) text, 1. text, 2. text, Question 1: text, etc.
+    patterns = [
+        r"(?im)^\s*([a-z])\)\s*(.+?)(?=^\s*[a-z]\)\s*|\Z)",  # a), b), c)
+        r"(?im)^\s*(\d+)\.\s*(.+?)(?=^\s*\d+\.\s*|\Z)",        # 1., 2., 3.
+        r"(?im)^\s*(Question\s*\d+)[\.:]?\s*(.+?)(?=^\s*Question\s*\d+|\Z)",  # Question 1, Question 2
+        r"(?im)^\s*(Part\s*[a-z])[\.:]?\s*(.+?)(?=^\s*Part\s*[a-z]|\Z)",    # Part a, Part b
+    ]
 
-    parts: list[tuple[str, str]] = []
-    for match in matches:
-        label = match.group(1).lower()
-        content = match.group(2).strip()
-        parts.append((label, content))
-    return parts
+    all_matches = []
+    for pattern in patterns:
+        matches = list(re.finditer(pattern, problem_text, flags=re.S))
+        if matches:
+            for match in matches:
+                label = match.group(1).strip().lower()
+                content = match.group(2).strip()
+                all_matches.append((label, content))
+
+    # Deduplicate and sort by position
+    if all_matches:
+        # Return in order found
+        return all_matches
+
+    return [("main", problem_text.strip())] if problem_text.strip() else []
 
 
 def _default_guided_steps(part_label: str, part_text: str) -> list[str]:
@@ -529,14 +550,38 @@ def _solve_problem_with_llm(profile, message: str, documents: list[AgentDocument
         return None
 
     document_text, citations = _available_document_text(documents)
+
+    # Try to extract the specific requested part from the document
+    requested_part = _extract_requested_part(message)
+    focused_text = document_text
+    if requested_part and document_text:
+        parts = _extract_problem_parts(document_text)
+        matching_part = None
+        for label, content in parts:
+            if label.lower() == requested_part.lower():
+                matching_part = content
+                break
+        if matching_part:
+            focused_text = f"[From document: {documents[0].name if documents else 'unknown'} - Part {requested_part.upper()}]\n\n{matching_part}"
+            print(f"[DEBUG] Focused on part '{requested_part}' - using {len(matching_part)} chars (was {len(document_text)} total)")
+        else:
+            available = [label for label, _ in parts]
+            print(f"[DEBUG] Could not find part '{requested_part}' in document. Available parts: {available}")
+            focused_text = f"[Full document - requested part '{requested_part}' not found]\n\n{document_text}"
+
     try:
         response = llm.invoke(
             [
                 SystemMessage(
                     content=(
-                        "You are a tutoring assistant. Solve the student's request step by step.\n"
-                        "Ground the answer on provided document text when available.\n"
-                        "If the question references a numbered exercise like 'question 1', explain the reasoning clearly and keep the answer practical.\n"
+                        "You are a tutoring assistant. Solve ONLY the specific problem the student asked for.\n\n"
+                        "CRITICAL RULES:\n"
+                        "1. Identify the exact part requested (e.g., 'problem 2', 'part b', 'question 3')\n"
+                        "2. Find THAT SPECIFIC part in the provided document text\n"
+                        "3. Solve ONLY that part - do NOT include solutions to other problems\n"
+                        "4. If the requested part is not in the text, state that clearly\n"
+                        "5. Provide clear, step-by-step reasoning\n"
+                        "6. Use markdown formatting\n"
                     )
                 ),
                 HumanMessage(
@@ -544,7 +589,7 @@ def _solve_problem_with_llm(profile, message: str, documents: list[AgentDocument
                         f"Student: {profile.student_name}\n"
                         f"Major: {profile.major}\n"
                         f"Request: {message}\n"
-                        f"Document text:\n{document_text or 'No extracted document text provided.'}"
+                        f"Document text to solve from:\n{focused_text}"
                     )
                 ),
             ]
@@ -556,7 +601,7 @@ def _solve_problem_with_llm(profile, message: str, documents: list[AgentDocument
             return None
         return AgentToolExecution(
             tool="problem_solver",
-            summary="Generated a worked solution from the available prompt and document context.",
+            summary="Generated a worked solution for the requested problem part.",
             output=str(text).strip(),
             citations=citations,
             status="completed" if document_text else "partial",
@@ -870,6 +915,13 @@ def _get_chat_workflow():
 
 
 def _run_chat_workflow(session_id: str, message: str, documents: list[AgentDocument], profile) -> ChatWorkflowState:
+    print(f"[DEBUG _run_chat_workflow] Starting workflow")
+    print(f"[DEBUG _run_chat_workflow] Session ID: {session_id}")
+    print(f"[DEBUG _run_chat_workflow] Profile: {profile.student_name}")
+    print(f"[DEBUG _run_chat_workflow] Number of documents passed: {len(documents)}")
+    for i, doc in enumerate(documents):
+        print(f"[DEBUG _run_chat_workflow]   Doc {i}: name={doc.name}, extraction_status={doc.extraction_status}, raw_text_len={len(doc.raw_text) if doc.raw_text else 0}")
+
     workflow = _get_chat_workflow()
     return workflow.invoke(
         {
@@ -915,6 +967,10 @@ def send_chat_message(session_id: str, request: AgentChatMessageRequest) -> Agen
     record = memory_store.get_chat_session(session_id)
     if not record:
         raise ValueError(f'Chat session "{session_id}" was not found')
+
+    print(f"[DEBUG send_chat_message] Session {session_id}")
+    print(f"[DEBUG send_chat_message] Documents in record: {len(record['documents'])}")
+    print(f"[DEBUG send_chat_message] Document details: {[(doc.name, doc.extraction_status) for doc in record['documents']]}")
 
     if request.student_id and not record.get("student_id"):
         record["student_id"] = request.student_id

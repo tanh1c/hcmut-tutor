@@ -460,23 +460,40 @@ const AgentToolChatLab: React.FC = () => {
               )}
 
               {sessionState && (
-                <div className="space-y-2">
+                <div className="space-y-3">
                   <p className="text-sm font-medium text-slate-700">Attached documents</p>
                   <div className="space-y-2">
                     {sessionState.documents.length > 0 ? (
                       sessionState.documents.map((document) => (
-                        <div key={document.id} className="rounded-2xl bg-slate-50 px-3 py-3 text-sm">
-                          <div className="font-medium text-slate-800">{document.name}</div>
-                          <div className="mt-1 text-slate-500">
-                            {document.mimeType} • {Math.ceil(document.size / 1024)} KB
-                          </div>
-                          <div className="mt-2 inline-flex rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
-                            Extraction: {document.extractionStatus}
+                        <div key={document.id} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                          <div className="flex items-start justify-between gap-2">
+                            <div className="min-w-0 flex-1">
+                              <div className="flex items-center gap-2">
+                                <span className="font-semibold text-slate-800 truncate">{document.name}</span>
+                                {document.extractionStatus === 'ready' ? (
+                                  <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-semibold text-emerald-700">
+                                    ✓ Ready
+                                  </span>
+                                ) : (
+                                  <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-700">
+                                    Processing...
+                                  </span>
+                                )}
+                              </div>
+                              <div className="mt-1 text-xs text-slate-500">
+                                {document.mimeType} • {Math.ceil(document.size / 1024)} KB
+                              </div>
+                              {document.extractedTextPreview && (
+                                <div className="mt-2 rounded-lg bg-white border border-slate-200 p-2 text-xs text-slate-600 max-h-24 overflow-y-auto">
+                                  <span className="font-medium">Preview:</span> {document.extractedTextPreview}...
+                                </div>
+                              )}
+                            </div>
                           </div>
                         </div>
                       ))
                     ) : (
-                      <div className="rounded-2xl bg-slate-50 px-3 py-3 text-sm text-slate-500">
+                      <div className="rounded-2xl bg-slate-50 px-4 py-6 text-sm text-slate-500 text-center">
                         No documents attached yet.
                       </div>
                     )}

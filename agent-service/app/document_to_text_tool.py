@@ -246,6 +246,17 @@ class PdfToMarkdownError(RuntimeError):
     pass
 
 
+def clean_pdf_lines(raw_text: str) -> list[str]:
+    """Clean raw PDF text into normalized lines, filtering noise and normalizing whitespace."""
+    lines = raw_text.splitlines()
+    cleaned = []
+    for line in lines:
+        line = normalize_line(line)
+        if line and not is_common_noise_line(line):
+            cleaned.append(line)
+    return cleaned
+
+
 def convert_pdf_to_markdown(pdf_path: Path) -> str:
     if fitz is None:
         raise PdfToMarkdownError(
