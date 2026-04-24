@@ -268,6 +268,50 @@ const AgentToolChatLab: React.FC = () => {
       setError('');
       setStreamEvents([]);
 
+      // Auto-upload any selected files first
+      if (selectedFiles.length > 0) {
+        console.log('Auto-uploading files before sending message...');
+        const uploadResponse = await fetch(
+          `${API_BASE_URL}/agent-lab/chat/sessions/${sessionState.session.id}/documents`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              studentId: selectedProfileId,
+              documents: await Promise.all(
+                selectedFiles.map(async (file) => ({
+                  name: file.name,
+                  mimeType: file.type || 'application/octet-stream',
+                  size: file.size,
+                  textContent:
+                    file.type.startsWith('text/') || /\.(txt|md|csv)$/i.test(file.name)
+                      ? await file.text()
+                      : null,
+                  contentBase64:
+                    file.type.startsWith('text/') || /\.(txt|md|csv)$/i.test(file.name)
+                      ? null
+                      : await fileToBase64(file)
+                }))
+              )
+            })
+          }
+        );
+
+        const uploadPayload = await uploadResponse.json();
+        console.log('Auto-upload response:', uploadPayload);
+
+        if (!uploadPayload.success) {
+          throw new Error(uploadPayload.error || 'Failed to upload documents');
+        }
+
+        // Update session state with uploaded documents
+        setSessionState(uploadPayload.data);
+        setSelectedFiles([]);
+      }
+
+      // Now send the message
       const response = await fetch(
         `${API_BASE_URL}/agent-lab/chat/sessions/${sessionState.session.id}/messages/stream`,
         {
@@ -316,7 +360,11 @@ const AgentToolChatLab: React.FC = () => {
           }
         }
       }
+
+      // Clear message after sending
+      setMessage('');
     } catch (requestError: any) {
+      console.error('Send message error:', requestError);
       setError(requestError.message || 'Failed to send message');
     } finally {
       setBusy(false);
