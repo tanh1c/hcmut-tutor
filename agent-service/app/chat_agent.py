@@ -345,9 +345,9 @@ def _tutoring_progress_from_state(tutoring_state: dict[str, Any] | None) -> Agen
         totalSteps=total_steps,
         awaitingConfirmation=tutoring_state.get("awaiting_confirmation", False),
         nextActionHint=(
-            "Reply with `ok` or `continue` when you want the next step."
+            "Reply with `ok` or `continue` when this step is clear and you want the next one."
             if current_step < total_steps
-            else "Ask for the next part when you are ready."
+            else "Review this part, then ask for the next part or request a quiz/video follow-up."
         ),
     )
 
@@ -572,7 +572,7 @@ def _guided_step_with_llm(profile, part_label: str, part_text: str, step_goal: s
                         "You are a tutoring coach. Give only the current step, not the full solution.\n"
                         "Use markdown.\n"
                         "Keep the explanation focused, concrete, and short enough for an interactive tutoring flow.\n"
-                        "End by inviting the student to confirm before the next step.\n"
+                        "End by asking whether this step is clear and invite the student to reply with ok/continue before the next step.\n"
                     )
                 ),
                 HumanMessage(
@@ -602,7 +602,7 @@ def _fallback_guided_step(part_label: str, step_index: int, step_goal: str, part
         f"{intro}"
         f"**Step {step_index + 1}:** {step_goal}\n\n"
         f"Focus on this part of the prompt:\n\n> {part_text[:400]}\n\n"
-        "Reply with `ok` or `continue` when you want the next step."
+        "If this step looks good, reply with `ok` or `continue` and I will move to the next step."
     )
 
 
@@ -633,13 +633,25 @@ def _run_guided_problem_solver(
             markdown = (
                 f"### {current_label}) is complete\n\n"
                 f"We have finished the guided steps for **{current_label})**.\n\n"
-                f"If you want, we can continue with **{next_label})** next. Reply with `continue` or ask directly for part {next_label}."
+                "#### Quick review\n\n"
+                f"- You have completed the current walkthrough for **{current_label})**.\n"
+                "- If anything feels unclear, ask me to re-explain this part before moving on.\n\n"
+                "#### Suggested next actions\n\n"
+                f"- Reply with `continue` to move to **{next_label})**.\n"
+                f"- Ask me to **create a quiz for part {current_label}**.\n"
+                f"- Ask me to **make a short video plan for part {current_label}**.\n"
             )
         else:
             markdown = (
                 "### Guided section complete\n\n"
                 "We have finished the current guided walkthrough.\n\n"
-                "You can now ask for the next question, request a summary, or ask me to turn this into a quiz."
+                "#### Quick review\n\n"
+                "- The current problem walkthrough is complete.\n"
+                "- If you want, I can still revisit any earlier step and explain it more slowly.\n\n"
+                "#### Suggested next actions\n\n"
+                "- Ask for the **next question**.\n"
+                "- Ask me to **create a quiz** from this problem.\n"
+                "- Ask me to **make a short video learning plan** for this topic.\n"
             )
         execution = AgentToolExecution(
             tool="problem_solver",
@@ -969,6 +981,14 @@ def stream_chat_message(session_id: str, request: AgentChatMessageRequest) -> Ge
         config={"configurable": {"thread_id": session_id}},
     ):
         for node_name, payload in update.items():
+            if payload is None:
+                yield AgentStreamEvent(
+                    type="graph_update",
+                    message=f"Completed node `{node_name}`.",
+                    node=node_name,
+                ).model_dump_json(by_alias=True) + "\n"
+                continue
+
             if node_name == "llm_select" and payload.get("decision"):
                 yield AgentStreamEvent(
                     type="tool_selected",
