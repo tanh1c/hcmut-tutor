@@ -150,6 +150,10 @@ def upload_session_documents(session_id: str, request: AgentDocumentUploadReques
     if not record:
         raise ValueError(f'Chat session "{session_id}" was not found')
 
+    print(f"[DEBUG] Uploading documents to session {session_id}")
+    print(f"[DEBUG] Request has {len(request.documents)} documents")
+    print(f"[DEBUG] Current session has {len(record['documents'])} documents before upload")
+
     if request.student_id and not record.get("student_id"):
         record["student_id"] = request.student_id
         try:
@@ -159,6 +163,7 @@ def upload_session_documents(session_id: str, request: AgentDocumentUploadReques
 
     uploaded_at = now_iso()
     for item in request.documents:
+        print(f"[DEBUG] Adding document: {item.name}, size: {item.size}, has_content: {bool(item.text_content or item.content_base64)}")
         record["documents"].append(
             AgentDocument(
                 id=f"doc_{uuid4().hex[:12]}",
@@ -173,6 +178,7 @@ def upload_session_documents(session_id: str, request: AgentDocumentUploadReques
             )
         )
 
+    print(f"[DEBUG] Session now has {len(record['documents'])} documents after upload")
     record["updated_at"] = uploaded_at
     record["messages"].append(
         AgentChatMessage(
@@ -184,6 +190,7 @@ def upload_session_documents(session_id: str, request: AgentDocumentUploadReques
         )
     )
     memory_store.save_chat_session(record)
+    print(f"[DEBUG] Session saved, verifying: {len(record['documents'])} documents")
     return _session_state(record)
 
 

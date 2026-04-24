@@ -3,9 +3,11 @@ uvicorn>=0.35.0
 google-genai>=1.30.0
 langchain>=0.3.0
 langchain-google-genai>=2.1.0
-langgraph>=0.2.0
+langgraph>=0.3.0
 langgraph-checkpoint-mongodb>=0.1.0
-markitdown[pdf]
+markitdown>=0.1.0
+pymupdf>=1.24.0
+Pillow>=10.4.0
 pydantic>=2.11.0
 pymongo>=4.8.0
 python-dotenv>=1.1.0

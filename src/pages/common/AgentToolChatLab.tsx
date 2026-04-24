@@ -210,6 +210,8 @@ const AgentToolChatLab: React.FC = () => {
       setBusy(true);
       setError('');
 
+      console.log('Uploading documents:', { sessionId: sessionState.session.id, files: selectedFiles.map(f => f.name) });
+
       const response = await fetch(
         `${API_BASE_URL}/agent-lab/chat/sessions/${sessionState.session.id}/documents`,
         {
@@ -237,7 +239,9 @@ const AgentToolChatLab: React.FC = () => {
           })
         }
       );
+
       const payload = await response.json();
+      console.log('Upload response:', { status: response.status, payload });
 
       if (!payload.success) {
         throw new Error(payload.error || 'Failed to upload documents');
@@ -245,7 +249,9 @@ const AgentToolChatLab: React.FC = () => {
 
       setSessionState(payload.data);
       setSelectedFiles([]);
+      console.log('Session state updated, documents count:', payload.data.documents.length);
     } catch (requestError: any) {
+      console.error('Upload error:', requestError);
       setError(requestError.message || 'Failed to upload documents');
     } finally {
       setBusy(false);
@@ -405,39 +411,6 @@ const AgentToolChatLab: React.FC = () => {
                 </div>
               )}
 
-              <div className="space-y-3 rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-4">
-                <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                  <CloudUpload fontSize="small" />
-                  Input attachments
-                </div>
-                <input
-                  type="file"
-                  multiple
-                  accept=".pdf,image/*"
-                  onChange={(event) => setSelectedFiles(Array.from(event.target.files || []))}
-                  className="block w-full text-sm text-slate-600"
-                />
-                <p className="text-xs text-slate-500">
-                  Text files are sent with content immediately. PDF/image files should route through the document-to-text branch before any grounded solving step.
-                </p>
-                <Button
-                  onClick={uploadDocuments}
-                  disabled={!sessionState || selectedFiles.length === 0 || busy}
-                  variant="outlined"
-                >
-                  Attach selected files
-                </Button>
-                {selectedFiles.length > 0 && (
-                  <div className="space-y-2">
-                    {selectedFiles.map((file) => (
-                      <div key={`${file.name}-${file.size}`} className="rounded-xl bg-white px-3 py-2 text-sm">
-                        {file.name} ({Math.ceil(file.size / 1024)} KB)
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
               {sessionState && (
                 <div className="space-y-2">
                   <p className="text-sm font-medium text-slate-700">Attached documents</p>
@@ -522,14 +495,60 @@ const AgentToolChatLab: React.FC = () => {
 
               <div className="space-y-3">
                 <label className="block text-sm font-medium text-slate-700">Message to the agent</label>
-                <textarea
-                  value={message}
-                  onChange={(event) => setMessage(event.target.value)}
-                  rows={5}
-                  className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none transition focus:border-emerald-500"
-                  placeholder="Describe what you want: solve a problem, generate a quiz, or create a video plan."
-                />
-                <div className="flex justify-end">
+                <div className="flex gap-3">
+                  <div className="flex-1 space-y-3">
+                    <textarea
+                      value={message}
+                      onChange={(event) => setMessage(event.target.value)}
+                      rows={4}
+                      className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none transition focus:border-emerald-500"
+                      placeholder="Describe what you want: solve a problem, generate a quiz, or create a video plan."
+                    />
+                    {selectedFiles.length > 0 && (
+                      <div className="flex flex-wrap gap-2">
+                        {selectedFiles.map((file) => (
+                          <div
+                            key={`${file.name}-${file.size}`}
+                            className="group flex items-center gap-2 rounded-full bg-emerald-100 px-3 py-1.5 text-sm text-emerald-800"
+                          >
+                            <CloudUpload fontSize="small" />
+                            <span className="max-w-[150px] truncate">{file.name}</span>
+                            <button
+                              type="button"
+                              onClick={() => setSelectedFiles(selectedFiles.filter(f => f !== file))}
+                              className="rounded-full p-0.5 text-emerald-600 opacity-60 transition hover:opacity-100"
+                              title="Remove file"
+                            >
+                              ×
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <label className="cursor-pointer">
+                      <input
+                        type="file"
+                        multiple
+                        accept=".pdf,image/*,.txt,.md,.csv"
+                        onChange={(event) => setSelectedFiles(Array.from(event.target.files || []))}
+                        className="hidden"
+                      />
+                      <div className="flex h-14 w-14 items-center justify-center rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 text-slate-600 transition hover:border-emerald-500 hover:bg-emerald-50 hover:text-emerald-600">
+                        <CloudUpload fontSize="large" />
+                      </div>
+                    </label>
+                    <Button
+                      onClick={uploadDocuments}
+                      disabled={!sessionState || selectedFiles.length === 0 || busy}
+                      variant="outlined"
+                      className="h-10 w-14 p-0"
+                      title="Upload files"
+                    >
+                      ↑
+                    </Button>
+                  </div>
                   <Button
                     onClick={sendMessage}
                     disabled={!sessionState || !message.trim() || busy}
@@ -540,9 +559,12 @@ const AgentToolChatLab: React.FC = () => {
                       fontWeight: 700
                     }}
                   >
-                    {busy ? 'Working...' : 'Ask agent'}
+                    {busy ? 'Working...' : 'Send →'}
                   </Button>
                 </div>
+                <p className="text-xs text-slate-500">
+                  PDF/image files will be parsed first. Attach files using the button above, then click "Upload files" or send a message to trigger automatic upload.
+                </p>
               </div>
 
               {sessionState?.latestExecution && (

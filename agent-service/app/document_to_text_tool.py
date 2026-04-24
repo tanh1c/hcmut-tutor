@@ -5,9 +5,9 @@ import unicodedata
 from pathlib import Path
 
 try:
-    from markitdown import MarkItDown
+    import fitz  # PyMuPDF
 except ImportError:  # pragma: no cover
-    MarkItDown = None
+    fitz = None
 
 
 MARKDOWN_HEADING_RE = re.compile(r"^(#{1,6})\s*(.*?)\s*$")
@@ -24,10 +24,10 @@ COMMON_NOISE_FRAGMENT_RE = re.compile(
 EMPTY_TABLE_ROW_RE = re.compile(r"^\|\s*(?:\|\s*)+$")
 
 
-def fold_text(text: str) -> str:
-    normalized = unicodedata.normalize("NFD", text)
-    without_marks = "".join(char for char in normalized if unicodedata.category(char) != "Mn")
-    return without_marks.upper()
+def pdf_plain_text(line: str) -> str:
+    text = re.sub(r"[|#>*_`~]+", " ", line)
+    text = text.replace("-", " ")
+    return re.sub(r"\s+", " ", text).strip()
 
 
 def normalize_line(line: str) -> str:
@@ -48,10 +48,25 @@ def normalize_line(line: str) -> str:
 
 
 def cleanup_markdown(text: str) -> str:
-    lines = [line.rstrip() for line in text.splitlines()]
-    cleaned = "\n".join(lines).strip()
-    cleaned = re.sub(r"\n{3,}", "\n\n", cleaned)
-    return cleaned + "\n"
+    lines: list[str] = []
+    for raw_line in text.splitlines():
+        raw_line = COMMON_NOISE_FRAGMENT_RE.sub(" ", raw_line)
+        line = normalize_line(raw_line)
+        if not line:
+            lines.append("")
+            continue
+        if line == "-" or EMPTY_TABLE_ROW_RE.fullmatch(line):
+            continue
+        if is_common_noise_line(line):
+            continue
+        lines.append(line)
+    return "\n".join(lines).strip() + "\n"
+
+
+def fold_text(text: str) -> str:
+    normalized = unicodedata.normalize("NFD", text)
+    without_marks = "".join(char for char in normalized if unicodedata.category(char) != "Mn")
+    return without_marks.upper()
 
 
 def looks_like_upper_title(line: str) -> bool:
@@ -62,6 +77,38 @@ def looks_like_upper_title(line: str) -> bool:
         return False
     uppercase_ratio = sum(char.isupper() for char in letters) / len(letters)
     return uppercase_ratio >= 0.7 and len(line) <= 120
+
+
+def _previous_nonempty(lines: list[str], index: int) -> str | None:
+    for cursor in range(index - 1, -1, -1):
+        if lines[cursor]:
+            return lines[cursor]
+    return None
+
+
+def _next_nonempty(lines: list[str], index: int) -> str | None:
+    for cursor in range(index + 1, len(lines)):
+        if lines[cursor]:
+            return lines[cursor]
+    return None
+
+
+def contextual_page_numbers(lines: list[str]) -> list[str]:
+    filtered: list[str] = []
+    for index, line in enumerate(lines):
+        if not re.fullmatch(r"\d{1,3}", line):
+            filtered.append(line)
+            continue
+        prev_line = _previous_nonempty(lines, index)
+        next_line = _next_nonempty(lines, index)
+        if prev_line and prev_line.startswith("|"):
+            continue
+        if next_line and next_line.startswith("|"):
+            continue
+        if prev_line and next_line and looks_like_upper_title(prev_line) and looks_like_upper_title(next_line):
+            continue
+        filtered.append(line)
+    return filtered
 
 
 def dedupe_neighbors(lines: list[str]) -> list[str]:
@@ -149,12 +196,6 @@ def normalize_text_blocks(lines: list[str]) -> list[str]:
     return output
 
 
-def pdf_plain_text(line: str) -> str:
-    text = re.sub(r"[|#>*_`~]+", " ", line)
-    text = text.replace("-", " ")
-    return re.sub(r"\s+", " ", text).strip()
-
-
 def is_common_noise_line(line: str) -> bool:
     plain = fold_text(pdf_plain_text(line))
     compact = re.sub(r"[^A-Z0-9]+", "", plain)
@@ -173,54 +214,6 @@ def is_common_noise_line(line: str) -> bool:
     if "DHQGTPHCM" in compact:
         return True
     return False
-
-
-def _previous_nonempty(lines: list[str], index: int) -> str | None:
-    for cursor in range(index - 1, -1, -1):
-        if lines[cursor]:
-            return lines[cursor]
-    return None
-
-
-def _next_nonempty(lines: list[str], index: int) -> str | None:
-    for cursor in range(index + 1, len(lines)):
-        if lines[cursor]:
-            return lines[cursor]
-    return None
-
-
-def contextual_page_numbers(lines: list[str]) -> list[str]:
-    filtered: list[str] = []
-    for index, line in enumerate(lines):
-        if not re.fullmatch(r"\d{1,3}", line):
-            filtered.append(line)
-            continue
-        prev_line = _previous_nonempty(lines, index)
-        next_line = _next_nonempty(lines, index)
-        if prev_line and prev_line.startswith("|"):
-            continue
-        if next_line and next_line.startswith("|"):
-            continue
-        if prev_line and next_line and looks_like_upper_title(prev_line) and looks_like_upper_title(next_line):
-            continue
-        filtered.append(line)
-    return filtered
-
-
-def clean_pdf_lines(markdown: str) -> list[str]:
-    lines: list[str] = []
-    for raw_line in markdown.splitlines():
-        raw_line = COMMON_NOISE_FRAGMENT_RE.sub(" ", raw_line)
-        line = normalize_line(raw_line)
-        if not line:
-            lines.append("")
-            continue
-        if line == "-" or EMPTY_TABLE_ROW_RE.fullmatch(line):
-            continue
-        if is_common_noise_line(line):
-            continue
-        lines.append(line)
-    return normalize_text_blocks(contextual_page_numbers(lines))
 
 
 def promote_headings(lines: list[str]) -> list[str]:
@@ -254,16 +247,20 @@ class PdfToMarkdownError(RuntimeError):
 
 
 def convert_pdf_to_markdown(pdf_path: Path) -> str:
-    if MarkItDown is None:
+    if fitz is None:
         raise PdfToMarkdownError(
-            "MarkItDown is not installed. Install agent-service requirements to enable PDF conversion."
+            "PyMuPDF (fitz) is not installed. Install with: pip install pymupdf"
         )
-    converter = MarkItDown(enable_plugins=False)
     try:
-        result = converter.convert(str(pdf_path))
+        doc = fitz.open(pdf_path)
+        pages_text = []
+        for page in doc:
+            pages_text.append(page.get_text())
+        doc.close()
     except Exception as exc:  # pragma: no cover
         raise PdfToMarkdownError(f"Failed to convert PDF {pdf_path.name}: {exc}") from exc
-    raw_markdown = result.markdown or ""
-    cleaned_lines = clean_pdf_lines(raw_markdown)
+
+    raw_text = "\n\n".join(pages_text)
+    cleaned_lines = clean_pdf_lines(raw_text)
     promoted_lines = promote_headings(cleaned_lines)
     return cleanup_markdown("\n".join(promoted_lines)).strip()

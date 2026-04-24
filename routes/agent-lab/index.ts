@@ -95,10 +95,19 @@ export async function getAgentChatSessionHandler(req: Request, res: Response) {
 
 export async function uploadAgentChatDocumentsHandler(req: Request, res: Response) {
   try {
+    console.log('[DEBUG Node] Upload documents request:', {
+      sessionId: req.params.sessionId,
+      body: req.body
+    });
     const { studentId, documents } = req.body || {};
     const session = await uploadAgentChatDocuments(req.params.sessionId, {
       studentId,
       documents: Array.isArray(documents) ? documents : []
+    });
+
+    console.log('[DEBUG Node] Upload response:', {
+      sessionId: session.id,
+      documentCount: session.documents.length
     });
 
     return res.json({
@@ -106,6 +115,7 @@ export async function uploadAgentChatDocumentsHandler(req: Request, res: Respons
       data: session
     });
   } catch (error: any) {
+    console.error('[DEBUG Node] Upload error:', error);
     return res.status(502).json({
       success: false,
       error: error.message || 'Failed to upload agent chat documents'

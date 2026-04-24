@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/project/hcmut-tutor/agent-service/**)",
+      "Bash(python -c \"from app.models import *; print\\(''All models imported successfully''\\)\")",
+      "Bash(python -c \"from app.chat_agent import _get_chat_workflow; print\\(''Chat workflow module loaded''\\)\")",
+      "WebSearch"
+    ]
+  }
+}

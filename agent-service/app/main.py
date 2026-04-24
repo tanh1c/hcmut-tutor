@@ -104,14 +104,19 @@ def get_agent_chat_session(session_id: str):
 @app.post("/chat-lab/sessions/{session_id}/documents")
 def upload_agent_chat_documents(session_id: str, request: AgentDocumentUploadRequest):
     try:
+        print(f"[DEBUG main.py] Received upload request for session {session_id}")
+        print(f"[DEBUG main.py] Request body: {len(request.documents)} documents")
         session = upload_session_documents(session_id, request)
+        print(f"[DEBUG main.py] Upload successful, returning session with {len(session.documents)} documents")
         return {
             "success": True,
             "data": session.model_dump(by_alias=True),
         }
     except ValueError as error:
+        print(f"[DEBUG main.py] ValueError: {error}")
         raise HTTPException(status_code=404, detail=str(error)) from error
     except Exception as error:  # pragma: no cover
+        print(f"[DEBUG main.py] Exception: {error}")
         raise HTTPException(status_code=500, detail=str(error)) from error
 
 

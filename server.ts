@@ -126,8 +126,9 @@ app.use(cors({
   origin: process.env.NODE_ENV === 'production' ? '*' : config.frontend.url,
   credentials: true
 }));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+const jsonLimit = process.env.JSON_BODY_LIMIT || '50mb';
+app.use(express.json({ limit: jsonLimit }));
+app.use(express.urlencoded({ extended: true, limit: jsonLimit }));
 
 // Request logger
 app.use((req, res, next) => {
