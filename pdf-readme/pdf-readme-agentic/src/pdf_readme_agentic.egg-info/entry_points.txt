@@ -1,0 +1,2 @@
+[console_scripts]
+pdf-readme-agentic = pdf_readme_agentic.cli:main

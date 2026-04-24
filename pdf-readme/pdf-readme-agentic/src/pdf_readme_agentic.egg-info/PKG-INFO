@@ -1,0 +1,5 @@
+Metadata-Version: 2.4
+Name: pdf-readme-agentic
+Version: 0.1.0
+Summary: Agentic PDF to hierarchical README generator built on a local MarkItDown checkout.
+Requires-Python: >=3.11
