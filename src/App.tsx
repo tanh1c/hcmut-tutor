@@ -15,6 +15,7 @@ import TakeAssignment from './pages/student/TakeAssignment'
 import PreviewQuiz from './pages/tutor/PreviewQuiz'
 import QuizResultsView from './pages/tutor/QuizResultsView'
 import AssignmentSubmissionsView from './pages/tutor/AssignmentSubmissionsView'
+import AgentRoadmapLab from './pages/common/AgentRoadmapLab'
 
 function App() {
   return (
@@ -73,6 +74,7 @@ function App() {
         <Route path="/common/library" element={<CommonDeviceDetector />} />
         <Route path="/common/forum" element={<CommonDeviceDetector />} />
         <Route path="/common/notifications" element={<CommonDeviceDetector />} />
+        <Route path="/agent-lab" element={<AgentRoadmapLab />} />
         
         {/* Weather Effects Demo */}
         <Route path="/weather-demo" element={<WeatherEffectsDemo />} />

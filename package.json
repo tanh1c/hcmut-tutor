@@ -28,6 +28,8 @@
     "seed:forum": "tsx scripts/seed-forum.ts",
     "validate": "tsx scripts/validate.ts",
     "stats": "tsx -e \"import('./lib/dataValidator').then(m => m.generateDataStats())\"",
+    "agent:demo": "tsx scripts/agent-roadmap-demo.ts",
+    "agent:python": "python agent-service/run.py",
     "migrate:mongodb": "tsx scripts/migrate-to-mongodb.ts",
     "export:mongodb": "tsx scripts/export-mongodb-to-json.ts"
   },

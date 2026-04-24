@@ -40,6 +40,12 @@ export const config = {
     basePath: '/api'
   },
 
+  // Python Agent Service
+  agentService: {
+    url: process.env.AGENT_SERVICE_URL || 'http://localhost:8001',
+    timeoutMs: parseInt(process.env.AGENT_SERVICE_TIMEOUT_MS || '20000')
+  },
+
   // Environment
   env: process.env.NODE_ENV || 'development',
   isDevelopment: process.env.NODE_ENV !== 'production',

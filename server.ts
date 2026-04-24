@@ -75,6 +75,7 @@ import { getMessagesHandler, sendMessageHandler } from './routes/conversations/[
 
 // Import handlers - Chatbot
 import { chatbotHandler, getHistoryHandler } from './routes/chatbot/index.js';
+import { generateAgentRoadmapHandler, listAgentProfilesHandler } from './routes/agent-lab/index.js';
 
 // Import handlers - Session Requests
 import { listSessionRequestsHandler, createSessionRequestHandler } from './routes/session-requests/index.js';
@@ -252,6 +253,11 @@ app.post('/api/conversations/:id/messages', authenticate, sendMessageHandler);
 app.post('/api/chatbot', authenticate, chatbotHandler);
 app.post('/api/chatbot/chat', authenticate, chatbotHandler); // Alias for compatibility
 app.get('/api/chatbot/history', authenticate, getHistoryHandler);
+
+// ===== AGENT LAB ROUTES =====
+
+app.get('/api/agent-lab/profiles', listAgentProfilesHandler);
+app.post('/api/agent-lab/roadmap', generateAgentRoadmapHandler);
 
 // ===== PROGRESS ROUTES =====
 

@@ -1,0 +1,94 @@
+[
+  {
+    "id": "agent_stu_evening_01",
+    "studentName": "Nguyen Minh Khoa",
+    "major": "Computer Science",
+    "academicYear": 3,
+    "interests": ["web development", "machine learning", "study groups"],
+    "currentCourses": ["Data Structures", "Calculus 2", "Discrete Mathematics"],
+    "challengeAreas": ["proof writing", "time management"],
+    "weeklyGoalHours": 10,
+    "learningStyle": {
+      "preferredFormats": ["video", "quiz", "qa"],
+      "pace": "steady",
+      "likesShortBursts": true
+    },
+    "loginHistory": [
+      { "timestamp": "2026-04-14T19:10:00+07:00", "durationMinutes": 52, "device": "laptop" },
+      { "timestamp": "2026-04-14T21:00:00+07:00", "durationMinutes": 38, "device": "mobile" },
+      { "timestamp": "2026-04-15T19:25:00+07:00", "durationMinutes": 47, "device": "laptop" },
+      { "timestamp": "2026-04-16T20:15:00+07:00", "durationMinutes": 61, "device": "laptop" },
+      { "timestamp": "2026-04-17T18:50:00+07:00", "durationMinutes": 44, "device": "mobile" },
+      { "timestamp": "2026-04-18T20:40:00+07:00", "durationMinutes": 70, "device": "laptop" },
+      { "timestamp": "2026-04-19T19:35:00+07:00", "durationMinutes": 49, "device": "tablet" },
+      { "timestamp": "2026-04-20T20:05:00+07:00", "durationMinutes": 57, "device": "laptop" },
+      { "timestamp": "2026-04-21T21:10:00+07:00", "durationMinutes": 35, "device": "mobile" },
+      { "timestamp": "2026-04-22T19:45:00+07:00", "durationMinutes": 55, "device": "laptop" }
+    ],
+    "recentTasks": [
+      { "subject": "Data Structures", "type": "quiz", "status": "completed" },
+      { "subject": "Calculus 2", "type": "video", "status": "completed" },
+      { "subject": "Discrete Mathematics", "type": "qa", "status": "in_progress" }
+    ]
+  },
+  {
+    "id": "agent_stu_morning_02",
+    "studentName": "Tran Bao Chau",
+    "major": "Industrial Management",
+    "academicYear": 2,
+    "interests": ["operations", "presentation", "case study"],
+    "currentCourses": ["Statistics", "Microeconomics", "Project Management"],
+    "challengeAreas": ["quantitative analysis"],
+    "weeklyGoalHours": 8,
+    "learningStyle": {
+      "preferredFormats": ["reading", "video", "quiz"],
+      "pace": "consistent",
+      "likesShortBursts": false
+    },
+    "loginHistory": [
+      { "timestamp": "2026-04-14T06:40:00+07:00", "durationMinutes": 35, "device": "laptop" },
+      { "timestamp": "2026-04-15T07:15:00+07:00", "durationMinutes": 42, "device": "tablet" },
+      { "timestamp": "2026-04-16T06:55:00+07:00", "durationMinutes": 46, "device": "laptop" },
+      { "timestamp": "2026-04-17T07:10:00+07:00", "durationMinutes": 31, "device": "mobile" },
+      { "timestamp": "2026-04-18T06:50:00+07:00", "durationMinutes": 39, "device": "laptop" },
+      { "timestamp": "2026-04-19T08:05:00+07:00", "durationMinutes": 54, "device": "tablet" },
+      { "timestamp": "2026-04-20T07:00:00+07:00", "durationMinutes": 48, "device": "laptop" },
+      { "timestamp": "2026-04-21T06:45:00+07:00", "durationMinutes": 37, "device": "mobile" }
+    ],
+    "recentTasks": [
+      { "subject": "Statistics", "type": "reading", "status": "completed" },
+      { "subject": "Project Management", "type": "video", "status": "completed" },
+      { "subject": "Microeconomics", "type": "quiz", "status": "pending" }
+    ]
+  },
+  {
+    "id": "agent_stu_mixed_03",
+    "studentName": "Le Thu Uyen",
+    "major": "Mechanical Engineering",
+    "academicYear": 4,
+    "interests": ["simulation", "problem solving", "lab work"],
+    "currentCourses": ["Fluid Mechanics", "Machine Design", "Numerical Methods"],
+    "challengeAreas": ["keeping review rhythm", "balancing lab deadlines"],
+    "weeklyGoalHours": 12,
+    "learningStyle": {
+      "preferredFormats": ["qa", "practice", "video"],
+      "pace": "sprint",
+      "likesShortBursts": true
+    },
+    "loginHistory": [
+      { "timestamp": "2026-04-14T12:15:00+07:00", "durationMinutes": 28, "device": "mobile" },
+      { "timestamp": "2026-04-14T22:10:00+07:00", "durationMinutes": 41, "device": "laptop" },
+      { "timestamp": "2026-04-15T13:05:00+07:00", "durationMinutes": 33, "device": "tablet" },
+      { "timestamp": "2026-04-16T21:20:00+07:00", "durationMinutes": 63, "device": "laptop" },
+      { "timestamp": "2026-04-17T12:45:00+07:00", "durationMinutes": 25, "device": "mobile" },
+      { "timestamp": "2026-04-18T22:35:00+07:00", "durationMinutes": 57, "device": "laptop" },
+      { "timestamp": "2026-04-19T13:30:00+07:00", "durationMinutes": 29, "device": "tablet" },
+      { "timestamp": "2026-04-20T21:40:00+07:00", "durationMinutes": 51, "device": "laptop" }
+    ],
+    "recentTasks": [
+      { "subject": "Machine Design", "type": "qa", "status": "in_progress" },
+      { "subject": "Fluid Mechanics", "type": "practice", "status": "completed" },
+      { "subject": "Numerical Methods", "type": "video", "status": "pending" }
+    ]
+  }
+]
